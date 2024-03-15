@@ -3,12 +3,12 @@ entries:
   demo-chart-test:
   - apiVersion: v2
     appVersion: 1.16.3
-    created: "2024-03-15T13:24:54.037436278Z"
+    created: "2024-03-15T13:31:14.825973245Z"
     description: A Helm chart for Kubernetes
-    digest: 34d80a3338dc5024474be16e2eadec246ee2a86f236c6c0b2084487e95c85f7c
+    digest: f2a5ec1549d92eacd80f054aabdef290d87e1419682834df607007d4c0b575ba
     name: demo-chart-test
     type: application
     urls:
     - https://satu-com-ge.github.io/satu-charts/demo-chart-test-0.1.0.tgz
     version: 0.1.0
-generated: "2024-03-15T13:24:54.035961629Z"
+generated: "2024-03-15T13:31:14.825418409Z"
