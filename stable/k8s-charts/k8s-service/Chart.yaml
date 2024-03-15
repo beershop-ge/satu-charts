@@ -1,0 +1,8 @@
+apiVersion: v1
+description: A Helm chart to package your application container for Kubernetes
+home: https://github.com/gruntwork-io/helm-kubernetes-services
+maintainers:
+- email: chago19911@gmail.com
+  name: chago1991
+name: k8s-service
+version: 0.0.23
