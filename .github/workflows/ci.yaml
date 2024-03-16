@@ -7,7 +7,7 @@ on:
 
 jobs:
   lint-chart:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -18,7 +18,7 @@ jobs:
           config: .github/ct.yaml
 
   kubeval-chart:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs:
       - lint-chart
     strategy:
@@ -36,7 +36,7 @@ jobs:
 
   install-chart:
     name: install-chart
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs:
       - lint-chart
       - kubeval-chart
