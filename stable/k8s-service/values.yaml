@@ -27,7 +27,7 @@
 # EXAMPLE:
 #
 containerImage:
-  repository: spaceinternational/space-service-template-microservice
+  repository: chago19911/space-service-template-microservice
   tag: "66"
   pullPolicy: Always
 # applicationName is a string that names the application. This is used to label the pod and to name the main application
