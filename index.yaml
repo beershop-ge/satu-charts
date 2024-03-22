@@ -3,9 +3,9 @@ entries:
   demo-chart-test:
   - apiVersion: v2
     appVersion: 1.16.3
-    created: "2024-03-22T23:40:59.16021178Z"
+    created: "2024-03-22T23:46:46.737395546Z"
     description: A Helm chart for Kubernetes
-    digest: 8b54409ae43b4b63f19867e998c83bb73b2ebebc8c0055c5e91c737f40d6b0d9
+    digest: c03841fd75b3154ae090cb17fd5bf97b980c90b0f31722a77789877ab946ba26
     name: demo-chart-test
     type: application
     urls:
@@ -13,9 +13,9 @@ entries:
     version: 0.1.0
   k8s-service:
   - apiVersion: v1
-    created: "2024-03-22T23:40:59.161811147Z"
+    created: "2024-03-22T23:46:46.739111102Z"
     description: A Helm chart to package your application container for Kubernetes
-    digest: a01bda5143bdc79669adac89ea4996f3fb43c5581d776347048bb6ec7bd22681
+    digest: 515418fa5aa8735c85e6228de0f971a5aeced5c1836cc9e11600cd39a76f2135
     home: https://github.com/gruntwork-io/helm-kubernetes-services
     maintainers:
     - email: chago19911@gmail.com
@@ -24,4 +24,4 @@ entries:
     urls:
     - https://satu-com-ge.github.io/satu-charts/k8s-service-0.0.23.tgz
     version: 0.0.23
-generated: "2024-03-22T23:40:59.158620919Z"
+generated: "2024-03-22T23:46:46.736868895Z"
