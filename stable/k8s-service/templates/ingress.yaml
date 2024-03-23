@@ -6,18 +6,18 @@ metadata:
   annotations: {{ toYaml .Values.ingress.annotations | nindent 4 }}
 spec:
   rules:
-    - host: {{ .Values.ingress.hosts[0].host }}
+    - host: {{ .Values.ingress.hosts.host }}
       http:
         paths:
-          - path: {{ .Values.ingress.hosts[0].paths[0].path }}
-            pathType: {{ .Values.ingress.hosts[0].paths[0].pathType }}
+          - path: {{ .Values.ingress.hosts.paths.path }}
+            pathType: {{ .Values.ingress.hosts.paths.pathType }}
             backend:
               service:
-                name: {{ .Values.ingress.service.name }}
+                name: {{ .Values.service.name }}
                 port:
-                  number: {{ .Values.ingress.service.port }}
+                  number: {{ .Values.servicePort }}
   tls:
     - secretName: {{ .Values.ingress.tls.secretName }}
       hosts:
-        - {{ .Values.ingress.hosts[0].host }}
+        - {{ .Values.ingress.hosts.host }}
 {{- end }}
