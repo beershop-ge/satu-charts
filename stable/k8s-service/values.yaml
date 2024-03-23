@@ -1,3 +1,4 @@
+---
 #----------------------------------------------------------------------------------------------------------------------
 # CHART PARAMETERS
 # This file declares the configuration input values for the k8s-service Helm chart.
@@ -26,14 +27,14 @@
 #
 # EXAMPLE:
 #
-containerImage:
-  repository: chago19911/space-service-template-microservice
-  tag: "66"
-  pullPolicy: Always
+# containerImage:
+#   repository: nginx
+#   tag: stable
+#   pullPolicy: IfNotPresent
+
 # applicationName is a string that names the application. This is used to label the pod and to name the main application
 # container in the pod spec. The label is keyed under "gruntwork.io/app-name"
-applicationName: "template-microservice"
-applicationPath: "/template-microservice-path"
+
 #----------------------------------------------------------------------------------------------------------------------
 # OPTIONAL VALUES
 # These values have defaults, but may be overridden by the operator
@@ -48,6 +49,7 @@ applicationPath: "/template-microservice-path"
 #   - "echo"
 #   - "Hello World"
 containerCommand: null
+
 # containerArgs is a list of strings that indicate custom args that will be passed to the container (CMD) place of the default
 # configured on the image. Omit to use the default args configured in the image
 #
@@ -57,6 +59,7 @@ containerCommand: null
 #   - "echo"
 #   - "Hello World"
 containerArgs: null
+
 # containerPorts is a map that specifies the ports to open on the container. This is a nested map: the first map lists
 # the named ports, while the second layer lists the port spec. The named references can be used to refer to the specific
 # port of the container in other resources, like Service.
@@ -72,13 +75,45 @@ containerPorts:
   http:
     port: 80
     protocol: TCP
+
+# dnsPolicy sets the Pod DNS policy. Allowed values are "Default", "ClusterFirst", "ClusterFirstWithHostNet" (not supported on Windows), 
+# and "None". Note that "Default" is not the default DNS policy. If dnsPolicy is not explicitly specified, then "ClusterFirst" is used.
+# See [Pod's DNS Policy](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy) for details.
+#
+# EXAMPLE:
+#
+# dnsPolicy: "ClusterFirst"
+
+# startupProbe is a map that specifies the startup probe of the main application container. Startup probes indicate
+# when a container application has started. If such a probe is configured, it disables liveness and readiness checks
+# until it succeeds, making sure those probes don't interfere with the application startup. This can be used to adopt
+# liveness checks on slow starting containers, avoiding them getting killed by the kubelet before they are up and running.
+# You can read more about container startup probes in the official docs:
+# https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+# NOTE: This variable is injected directly into the container spec.
+#
+# The following example specifies an http GET based startup probe that will be based on a http GET request to
+# the port bound to name `http` (see description on `containerPorts`) on the path `/`. The application will have a maximum
+# of 5 minutes (30 * 10 = 300s) to finish its startup. Once the startup probe has succeeded once, the liveness probe takes over.
+# If the startup probe never succeeds, the container is killed after 300s and subject to the pod's `restartPolicy`.
+#
+# EXAMPLE:
+#
+# startupProbe:
+#   httpGet:
+#     path: /
+#     port: http
+#   failureThreshold: 30
+#   periodSeconds: 10
+startupProbe: {}
+
 # livenessProbe is a map that specifies the liveness probe of the main application container. Liveness probes indicate
 # when a container has reached a fatal state where it needs to be restarted to recover. When the liveness probe fails,
 # the container is automatically recreated. You can read more about container liveness probes in the official docs:
-# https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
+# https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
 # NOTE: This variable is injected directly into the container spec.
 #
-# The following example specifies an http GET based liveness probe, that will base the probe on a http GET request to
+# The following example specifies an http GET based liveness probe that will be based on a http GET request to
 # the port bound to name `http` (see description on `containerPorts`) on the path `/`.
 #
 # EXAMPLE:
@@ -88,13 +123,14 @@ containerPorts:
 #     path: /
 #     port: http
 livenessProbe: {}
+
 # readinessProbe is a map that specifies the readiness probe of the main application container. Readiness probes
 # indicate when a container is unable to serve traffic. When the readiness probe fails, the container is cycled out of
 # the list of available containers to the `Service`. You can read more about readiness probes in the official docs:
-# https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
+# https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
 # NOTE: This variable is injected directly into the container spec.
 #
-# The following example specifies an http GET based readiness probe, that will base the probe on a http GET request to
+# The following example specifies an http GET based readiness probe that will be based on a http GET request to
 # the port bound to name `http` (see description on `containerPorts`) on the path `/`.
 #
 # EXAMPLE:
@@ -104,21 +140,47 @@ livenessProbe: {}
 #     path: /
 #     port: http
 readinessProbe: {}
-# securityContext is a map that specified the privillege and access control settings for a Pod of Container. Security Context
+
+# hostAliases is a list of maps that specify additional entries to be added to the pod's `/etc/hosts` file. This is useful
+# for adding custom DNS entries to the pod. The items in the list are maps with the following keys:
+#   - ip        (string)       (required) : The IP address of the host.
+#   - hostnames (list[string]) (required) : A list of hostnames that should be resolved to the IP address.
+#
+# Refer to https://kubernetes.io/docs/tasks/network/customize-hosts-file-for-pods/ for more details.
+#
+# EXAMPLE:
+#
+# The following example specifies two aliases to be added to the pod's /etc/hosts file in a new section at the bottom:
+#
+# hostAliases:
+#   - ip: 127.0.0.1
+#     hostnames:
+#      - foo.local
+#      - bar.local
+#   - ip: 10.1.2.3
+#     hostnames:
+#      - foo.remote
+#      - bar.remote
+#
+# NOTE: This variable is injected directly into the deployment spec.
+hostAliases: []
+
+# securityContext is a map that specified the privilege and access control settings for a Pod of Container. Security Context
 # can be specified when the application requires additional access control permissions. More details on securityContext and supported
 # settings can be found at https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 # similar to the podSecurityContext {} however, this sets security attributes at the container level rather than at the pod level scope.
 
 #
 # EXAMPLE:
-# 1) To run a container in privilleged mode
+# 1) To run a container in privileged mode
 # securityContext:
-#   privilleged: true
+#   privileged: true
 #
 # 2) To run a container as a specific user
 # securityContext:
 #   runAsUser: 2000
 securityContext: {}
+
 # podSecurityContext holds pod-level security access control settings.
 # similar to the securityContext {} however, this sets security attributes at the pod level rather than at the container level scope.
 # this allows certain attributes to be set that are not possible in the container level. For example 'fsGroup'.
@@ -128,6 +190,7 @@ securityContext: {}
 # podSecurityContext:
 #   fsGroup: 2000
 podSecurityContext: {}
+
 # shutdownDelay is the number of seconds to delay the shutdown sequence of the Pod by. This is implemented as a sleep
 # call in the preStop hook. By default, this chart includes a preStop hook with a shutdown delay for eventual
 # consistency reasons. You can read more about why you might want to do this in
@@ -135,6 +198,7 @@ podSecurityContext: {}
 # You can disable this behavior by setting this value to 0.
 # NOTE: this conflicts with lifecycleHooks.preStop
 shutdownDelay: 5
+
 # lifecycleHooks configures container lifecycle hooks on the Pod so you can run arbitrary commands after the
 # container starts (postStart) or before the container stops.
 # Refer to https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/ for more information on container
@@ -158,6 +222,7 @@ shutdownDelay: 5
 # NOTE: the preStop hook conflicts with shutdownDelay
 lifecycleHooks:
   enabled: false
+
 # sideCarContainers specifies any additional containers that should be deployed as side cars to the main application
 # container. This will be included in the Deployment container spec so that it will be included in the application Pod.
 # This is a nested map, where the first map key is used to name the container, with the nested map being injected as the
@@ -177,6 +242,7 @@ lifecycleHooks:
 #       - name: SD_BACKEND
 #         value: docker
 sideCarContainers: {}
+
 # initContainers specifies any additional containers that should be deployed as init containers to the main application
 # container. This will be included in the Deployment container spec so that it will be included in the application Pod.
 # This is a nested map, where the first map key is used to name the container, with the nested map being injected as the
@@ -194,6 +260,7 @@ sideCarContainers: {}
 #       - name: FLYWAY_LOCATIONS
 #         value: 'filesystem:/flyway/migrations'
 initContainers: {}
+
 # canary specifies test pod(s) that are deployed alongside your application's stable track pods.
 # It is useful for testing a new release candidate in a production environment with minimal disruption and
 # for allowing you to find any issues early.
@@ -215,9 +282,11 @@ initContainers: {}
 #     tag: 1.16.0
 #     pullPolicy: IfNotPresent
 canary: {}
+
 # replicaCount can be used to configure the number of replica pods that should be deployed and maintained at any given
 # point in time. For example, setting to 3 will signal Kubernetes (via the Deployment contoller) to maintain 3 pods.
-replicaCount: 3
+replicaCount: 1
+
 # deploymentStrategy specifies the strategy used to replace old Pods by new ones. Type can be "RollingUpdate" or
 # "Recreate". "RollingUpdate" is the default value.
 # RollingUpdate: The Deployment updates Pods in a rolling update fashion.
@@ -245,36 +314,40 @@ replicaCount: 3
 #     maxSurge: 30%
 #     maxUnavailable: 30%
 deploymentStrategy:
-  enabled: true
+  enabled: false
   type: RollingUpdate
-  rollingUpdate:
-    maxSurge: 30%
-    maxUnavailable: 30%
+  rollingUpdate: {}
+
 # deploymentAnnotations will add the provided map to the annotations for the Deployment resource created by this chart.
 # The keys and values are free form, but subject to the limitations of Kubernetes resource annotations.
 # NOTE: This variable is injected directly into the deployment spec.
 deploymentAnnotations: {}
+
 # additionalDeploymentLabels will add the provided map to the labels for the Deployment resource created by this chart.
 # this is in addition to the helm template related labels created by the chart
 # The keys and values are free form, but subject to the limitations of Kubernetes labelling.
 # NOTE: This variable is injected directly into the deployment spec.
 additionalDeploymentLabels: {}
+
 # podAnnotations will add the provided map to the annotations for the Pod resource created by the Deployment.
 # The keys and values are free form, but subject to the limitations of Kubernetes resource annotations.
 # NOTE: This variable is injected directly into the pod spec.
 podAnnotations: {}
-# additionalDeploymentLabels will add the provided map to the labels for the Pods created by the deployment resource.
+
+# additionalPodLabels will add the provided map to the labels for the Pods created by the deployment resource.
 # this is in addition to the helm template related labels created by the chart
 # The keys and values are free form, but subject to the limitations of Kubernetes labelling.
 # The match labels for the deployment aren't affected by these additional labels
-# NOTE: This variable is injected directly into the deployment spec.
+# NOTE: This variable is injected directly into the pod spec.
 additionalPodLabels: {}
+
 # minPodsAvailable specifies the minimum number of pods that should be available at any given point in time. This is
 # used to configure a PodDisruptionBudget for the included pod. See
 # https://blog.gruntwork.io/avoiding-outages-in-your-kubernetes-cluster-using-poddisruptionbudgets-ef6a4baa5085
 # for an introduction to PodDisruptionBudgets.
 # NOTE: setting this to 0 will skip creating the PodDisruptionBudget resource.
 minPodsAvailable: 0
+
 # service is a map that specifies the configuration for the Service resource that is created by the chart.
 # The expected keys are:
 #   - enabled     (bool)   (required) : Whether or not the Service resource should be created. If false, no Service
@@ -326,6 +399,7 @@ service:
       port: 80
       targetPort: http
       protocol: TCP
+
 # servicemonitor is a map that can be used to configure a Service monitor for the operator. By default, service monitor is off.
 # The expected keys are:
 #   - enabled     (bool)         (required) : Whether or not the Service Monitor resource should be created. If false, no
@@ -355,6 +429,7 @@ serviceMonitor:
   namespace: monitoring
   labels: {}
   endpoints: {}
+
 # ingress is a map that can be used to configure an Ingress resource for this service. By default, turn off ingress.
 # NOTE: if you enable Ingress, then Service must also be enabled.
 # The expected keys are:
@@ -405,46 +480,6 @@ serviceMonitor:
 ingress:
   enabled: false
 
-# istio is a map that can be used to configure an Istio resource for this service. By default, turn on istio.
-# If its enabled, a VirtualService resource should be created to route the traffic based on the path you have set for applicationPath variable
-# Once its created, the microservice will be accessible via https://{api_domain_name}/{applicationPath}
-# The expected keys are:
-#   - enabled     (bool)         (required)  : Whether or not the istio virtualservice resource should be created. If false, no
-#                                              virtualservice resource will be created.
-#   - host        (string)       (optional) : To specify different host for the istio virtualservice, default to "*"
-#   - gateway     (string)       (optional) : To specify different istio gateway resource name, default to istio-system/secure-istio-gateway
-istio:
-  enabled: false
-  host: "*"
-  gateway: istio-system/secure-istio-gateway
-
-# Vault is a tool for securely accessing secrets. A secret is anything that you want to tightly control access to, such as API keys, passwords, certificates, and more.
-# By enabling the vault, The Vault Agent Injector alters pod specifications to include Vault Agent containers that render Vault secrets to a shared memory volume using Vault Agent Templates.
-# By rendering secrets to a shared volume, containers within the pod can consume Vault secrets without being Vault aware.
-# NOTE: Vault service should be configured in the cluster.
-# The expected keys are:
-#   - enabled     (bool)         (required)  : Whether or not the vault injection should be enabled.
-#   - role        (string)       (required)  : The Vault role used to access those secrets.
-#   - volumePath  (string)       (required)  : Configures where on the filesystem a secret will be rendered
-
-#   - secrets                (list[map])  (required)  : List of vault secrets that need to mount to the pod as volume
-#   - secrets: name          (string)     (required)  : Name of the Vault secret that need to mount to the filesystem
-#   - secrets: mountFileName (string)     (required)  : Name of the file to which the vault secret mount to the filesystem
-#
-# Example
-# vault:
-#   enabled: false
-#   role: ""
-#   volumePath: ""
-#   secrets:
-#     - name: "kv/VAULT_SECRET_NAME"
-#       mountFileName: "app.json"
-vault:
-  enabled: false
-  role: ""
-  volumePath: ""
-  secrets: {}
-
 # envVars is a map of strings to strings that specifies hard coded environment variables that should be set on the
 # application container. The keys will be mapped to environment variable keys, with the values mapping to the
 # environment variable values.
@@ -458,10 +493,8 @@ vault:
 # envVars:
 #   DB_HOST: "mysql.default.svc.cluster.local"
 #   DB_PORT: 3306
-envVars:
-  GRACEFULSHUTDOWNTIMEOUTSECONDS: "10"
-  SHUTDOWNTIMEOUTSECONDS: "10"
-  ASPNETCORE_ENVIRONMENT: "Development"
+envVars: {}
+
 # additionalContainerEnv is a list of additional environment variables
 # definitions that will be inserted into the Container's environment YAML.
 #
@@ -476,6 +509,7 @@ envVars:
 #       fieldRef:
 #         fieldPath: metadata.uid
 additionalContainerEnv: {}
+
 # configMaps is a map that specifies the ConfigMap resources that should be exposed to the main application container. Each
 # entry in the map represents a ConfigMap resource. The key refers to the name of the ConfigMap that should be exposed,
 # with the value specifying how to expose the ConfigMap. The value is also a map and has the following attributes:
@@ -529,6 +563,7 @@ additionalContainerEnv: {}
 #   anotherconfig:
 #     as: envFrom
 configMaps: {}
+
 # persistentVolumes is a map that specifies PersistentVolumes that should be mounted on the pod.  Each entry represents a
 # persistent volume which should already exist within your cluster. They Key is the name of the persistent volume.
 # The value is also a map and has the following attributes:
@@ -548,6 +583,7 @@ configMaps: {}
 #
 #
 persistentVolumes: {}
+
 # scratchPaths is a map of key value pairs that specifies which paths in the container should be setup as scratch space.
 # Under the hood each entry in the map is converted to a tmpfs volume with the name set to the key and mounted into the
 # container on the path provided as the value.
@@ -556,6 +592,7 @@ persistentVolumes: {}
 # scratchPaths:
 #   example: /mnt/scratch
 scratchPaths: {}
+
 # emptyDirs is a map of key value pairs that specifies which paths in the container should be setup as an emptyDir volume.
 # Under the hood each entry in the map is converted to a volume stored on whatever medium that backs the node
 # (disk, SSD, network storage) and mounted into the container on the path provided as the value.
@@ -564,12 +601,13 @@ scratchPaths: {}
 # emptyDirs:
 #   example: /mnt/example
 emptyDirs: {}
+
 # secrets is a map that specifies the Secret resources that should be exposed to the main application container. Each entry in
 # the map represents a Secret resource. The key refers to the name of the Secret that should be exposed, with the value
 # specifying how to expose the Secret. The value is also a map and has the following attributes:
-#   - as (enum[volume,environment,envFrom,none]) (required)
+#   - as (enum[volume,environment,envFrom,csi,none]) (required)
 #     : Secrets can be exposed to Pods as a volume mount, or as environment variables. This attribute is a string enum
-#       that is expected to be either "volume", "environment", or "envFrom", specifying that the Secret should be
+#       that is expected to be either "volume", "environment", "envFrom", or "csi" specifying that the Secret should be
 #       exposed as a mounted volume, via environment variables, or loaded in its entirety as environment variables
 #       respectively. This attribute can also be set to "none", which disables the `Secret` on the container.
 #   - mountPath (string)
@@ -594,7 +632,13 @@ emptyDirs: {}
 #                           exposed as environment variables. Expected to be the octal (e.g 777, 644). Defaults to 644.
 #   - envVarName (string) : The name of the environment variable where the value of the Secret keyed at the given key of
 #                           the item should be stored. Ignored when the Secret is exposed as a volume mount.
-#
+#   - csi (map)
+#     : For Secrets exposed as a volume using a CSI driver, specify the CSI driver details. This field should contain the
+#       following attributes:
+#       - driver (string)    : The name of the CSI driver.
+#       - readOnly (boolean) : Specify whether the volume should be mounted read-only.
+#       - secretProviderClass (string) : The name of the SecretProviderClass.
+#   - readOnly (boolean) : Specify whether the volume should be mounted read-only.
 # NOTE: These secrets are only automatically injected to the main application container. To add them to the side car
 # containers, use the official Kubernetes Pod syntax:
 # https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets
@@ -602,6 +646,9 @@ emptyDirs: {}
 # The following example exposes the Secret `mysecret` as a volume mounted to `/etc/mysecret`, while it exposes the
 # Secret `myothersecret` as an environment variable. Additionally, it automatically mounts all of the keys
 # `anothersecret` as environment variables using the `envFrom` keyword.
+# The following example exposes the Secret `onemoresecret` as a volume mounted to `/mnt/secrets-store-volume`,
+# using the CSI driver `secrets-store.csi.k8s.io`, and configures an environment variable `SECRET_ONEMORESECRET`
+# with the corresponding value from the Secret.
 #
 # EXAMPLE:
 #
@@ -616,27 +663,43 @@ emptyDirs: {}
 #         envVarName: SECRET_FOO
 #   anothersecret:
 #     as: envFrom
+#   onemoresecret:
+#     as: csi
+#     mountPath: /mnt/secrets-store-volume
+#     readOnly: true
+#     csi:
+#       driver: secrets-store.csi.k8s.io
+#       secretProviderClass: mysecretproviderclass
+#     items:
+#       onemoresecret:
+#         envVarName: SECRET_VAR
 secrets: {}
+
 # containerResources specifies the amount of resources the application container will require. Only specify if you have
 # specific resource needs.
 # NOTE: This variable is injected directly into the pod spec. See the official documentation for what this might look
 # like: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
 containerResources: {}
+
 # nodeSelector and affinity specify restrictions on what node this pod should be scheduled on.
 # NOTE: These variables are injected directly into the pod spec. See the official documentation for what this might look
 # like: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
 nodeSelector: {}
 affinity: {}
+
+# priorityClassName assigns a priorityClass to the deployment allowing pods to preempt or be preempted.
+# See https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass
+priorityClassName: {}
+
 # tolerations can be used to allow the pod to be scheduled on nodes with a specific taint.
 # NOTE: This variable is injected directly into the pod spec. See the official documentation for what this might look
 # like: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 tolerations: []
+
 # imagePullSecrets lists the Secret resources that should be used for accessing private registries. Each item in the
 # list is a string that corresponds to the Secret name.
-#imagePullSecrets:
-#- name: docker-cfg
-imagePullSecrets:
-  - "docker-cfg"
+imagePullSecrets: []
+
 # terminationGracePeriodSeconds sets grace period Kubernetes will wait before terminating the pod. The timeout happens
 # in parallel to preStop hook and the SIGTERM signal, Kubernetes does not wait for preStop to finish before beginning
 # the grace period.
@@ -644,6 +707,7 @@ imagePullSecrets:
 # EXAMPLE:
 # terminationGracePeriodSeconds: 30
 terminationGracePeriodSeconds: {}
+
 # serviceAccount is a map that configures the ServiceAccount information for the Pod.
 # The expected keys of serviceAccount are:
 #   - name                         (string) : The name of the ServiceAccount in the Namespace where the Pod is deployed
@@ -665,14 +729,74 @@ serviceAccount:
   create: false
   annotations: {}
   labels: {}
+
 # horizontalPodAutoscaler is a map that configures the Horizontal Pod Autoscaler information for this pod
 # The expected keys of hpa are:
-#   - enabled              (bool) : Whether or not Horizontal Pod Autoscaler should be created, if false the
+#   - enabled              (bool)   : Whether or not Horizontal Pod Autoscaler should be created, if false the
 #                                             Horizontal Pod Autoscaler will not be created
-#   - minReplicas          (int)  : The minimum amount of replicas allowed
-#   - maxReplicas          (int)  : The maximum amount of replicas allowed
-#   - avgCpuUtilization    (int)  : The target average CPU utilization to be used with the metrics
-#   - avgMemoryUtilization (int)  : The target average Memory utilization to be used with the metrics
+#   - minReplicas          (int)    : The minimum amount of replicas allowed
+#   - maxReplicas          (int)    : The maximum amount of replicas allowed
+#   - avgCpuUtilization    (int)    : The target average CPU utilization to be used with the metrics
+#   - avgMemoryUtilization (int)    : The target average Memory utilization to be used with the metrics
+#   - behavior             (object) : Configures the scaling behavior of the target in both Up and Down directions 
+#                                     (scaleUp and scaleDown fields respectively). If not set, the default 
+#                                     HPAScalingRules for scale up and scale down are used.
+#                                     Details: https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2/#HorizontalPodAutoscalerSpec
+# The expected attributes of the "behavior" object are:
+#   - scaleDown            (object) : The scaling policy for scaling Down
+#   - scaleUp              (object) : The scaling policy for scaling Up
+#
+# The expected attributes of both the "scaleDown" and "scaleUp" objects are:
+#   - policies                   (list[object])  : List of potential scaling policies which can be used during 
+#                                                  scaling. At least one policy must be specified, otherwise the 
+#                                                  HPAScalingRules will be discarded as invalid
+#   - selectPolicy               (string)        : Used to specify which policy should be used. If not set, the 
+#                                                  default value MaxPolicySelect is used.
+#   - stabilizationWindowSeconds (int)           : The number of seconds for which past recommendations should be 
+#                                                  considered while scaling up or scaling down. StabilizationWindowSeconds 
+#                                                  must be greater than or equal to zero and less than or equal to 3600 (one hour). 
+#                                                  If not set, use the default values: 
+#                                                    - For scale up: 0 (i.e. no stabilization is done). 
+#                                                    - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
+#
+# The expected attributes of the "policies" list for both the "scaleDown" and "scaleUp" objects are:
+#   - periodSeconds           (int)    : Specifies the window of time for which the policy should hold true. PeriodSeconds 
+#                                        must be greater than zero and less than or equal to 1800 (30 min).
+#   - type                    (string) : Used to specify the scaling policy.
+#   - value                   (int)    : The amount of change which is permitted by the policy. It must be greater than zero.
+#
+# Example horizontalPodAutoscaler with "behavior" configuration:
+#
+#  apiVersion: autoscaling/v2
+#  kind: HorizontalPodAutoscaler
+#  metadata:
+#    name: k8s-service-canary-test
+#    namespace: default
+#  spec:
+#    scaleTargetRef:
+#      apiVersion: apps/v1
+#      kind: Deployment
+#      name: k8s-service-canary-test
+#    minReplicas: 1
+#    maxReplicas: 10
+#    behavior:
+#      scaleDown:
+#        policies:
+#        - periodSeconds: 15
+#          type: Percent
+#          value: 100
+#        stabilizationWindowSeconds: 300
+#      scaleUp:
+#        policies:
+#        - periodSeconds: 15
+#          type: Percent
+#          value: 100
+#        - periodSeconds: 15
+#          type: Pods
+#          value: 4
+#        selectPolicy: Max
+#        stabilizationWindowSeconds: 0
+#
 #
 # The default config will not create the Horizontal Pod Autoscaler by setting enabled = false, the default values are
 # set so if enabled is true the horizontalPodAutoscaler has valid values.
@@ -680,6 +804,160 @@ horizontalPodAutoscaler:
   enabled: false
   minReplicas: 1
   maxReplicas: 10
+
+# verticalPodAutoscaler is a map that configures the Vertical Pod Autoscaler information for this pod
+# The expected keys of vpa are:
+#   - enabled                       (bool)   : Whether or not Vertical Pod Autoscaler should be created, if false the
+#                                              Vertical Pod Autoscaler will not be created
+#   - updateMode                    (string) : Controls when autoscaler applies changes to the pod resources. Possible values:
+#                                                * "Off" Changes are only recommended but the pods are not changed
+#                                                * "Initial" Changes are applied at pod creation only
+#                                                * "Recreate" Pods will be evicted to apply new scaling settings
+#                                                * "Auto" Currently it is equivalent with "Recreate" but in the future
+#                                                  it will update pods without eviction
+#   - minReplicas                   (int)    : Minimal number of replicas which need to be alive for Updater to attempt
+#                                              pod eviction (pending other checks like PDB).
+#   - evictionRequirements          (list)   : Requirements that need to be true for an eviction event to be attempted
+#   - mainContainerResourcePolicy   (object) : Configuration for the main container 
+#   - extraResourcePolicy           (list)   : Configuration injected. Can be used if other sideCarContainers are used
+#
+#
+# The expected attributes for objects of type evictionRequirement:
+#   - resource             (list)    :  A list of one or more resources that the condition applies to. These resources can be "cpu", "memory", etc.
+#   - changeRequirement    (string)  : The type of change required. Possible options:
+#                                      * "TargetHigherThanRequests" - The eviction is attempted when the new target is higher than the current requests,
+#                                        i.e., the Pod is scaled up.
+#                                      * "TargetLowerThanRequests" - The eviction is attempted if the new target is lower than the current requests,
+#                                        i.e., the Pod is scaled down.
+#
+# The expected attributes for `mainContainerResourcePolicy` object:
+#  - mode                    (string) : The mode of operation. Can be "Off", "Auto"
+#  - minAllowed              (object) : The minimum resources allowed for the container. 
+#  - maxAllowed              (object) : The maximum resources allowed for the container.
+#  - controlledResources     (list)   : The list of resources that the policy can control. Can include "cpu" and "memory".
+#  - controlledValues        (string) : The values that the policy can control. Can be "RequestsOnly" or "RequestsAndLimits".
+#
+#
+# The expected attributes for `extraResourcePolicy` list of objects:
+#  - containerName           (string) : The name of the container that the policy applies to.
+#  - mode                    (string) : The mode of operation. Can be "Off", "Auto"
+#  - minAllowed              (object) : The minimum resources allowed for the container.
+#  - maxAllowed              (object) : The maximum resources allowed for the container.
+#  - controlledResources     (list)   : The list of resources that the policy can control. Can include "cpu" and "memory".
+#  - controlledValues        (string) : The values that the policy can control. Can be "RequestsOnly" or "RequestsAndLimits".
+
+# The expected attributes for `minAllowed` and `maxAllowed` objects:
+#  - cpu (string): 
+#  - memory (string): 
+# 
+#
+# Example configuration that uses all the features
+#
+# ```yaml
+# verticalPodAutoscaler:
+#   enabled: true
+#   updateMode: "Auto"
+#   minPodsAvailable: 2
+#   evictionRequirements:
+#     # Allow scale up events if the CPU needs adjusting
+#     - resource: ["cpu"]  
+#       changeRequirement: TargetHigherThanRequests
+#
+#     # Allow scale up events if the Memory needs adjusting
+#     - resource: ["memory"]
+#       changeRequirement: TargetHigherThanRequests
+#
+#     # Allow scale down events if both the CPU and memory need adjusting
+#     - resource: ["cpu", "memory"]
+#       changeRequirement: TargetLowerThanRequests
+#   mainContainerResourcePolicy:
+#     # Enable scaling for the main container
+#     mode: "Auto"
+#     minAllowed:
+#       cpu: "0.2"
+#       memory: "200Mi"
+#     maxAllowed:
+#       cpu: "1"
+#       memory: "500Mi"
+#     # Scale both the CPU and Memory of the container
+#     controlledResources: ["cpu", "memory"]
+#     # Adjust both requests and limits
+#     controlledValues: "RequestsAndLimits"
+#   # Configuration for other containers (e.g. when sideCarContainers are used)
+#   extraResourcePolicy:
+#     # Disable the scaling for all other containers by default
+#     - containerName: "*"
+#       mode: "Off"
+#     # Assuming we have a sideCarContainers called "proxy"
+#     - containerName: "proxy"
+#       # Enable scaling actions
+#       mode: "Auto"
+#       minAllowed:
+#         cpu: "0.2"
+#       maxAllowed:
+#         cpu: "1"
+#       # Only scale the CPU
+#       controlledResources: ["cpu"]
+#       # Scale only the requests
+#       controlledValues: "RequestsOnly"
+# ```
+#
+#
+# This will result in the following configuration
+#
+# ```yaml
+# apiVersion: autoscaling.k8s.io/v1
+# kind: VerticalPodAutoscaler
+# metadata:
+#   name: XXXX
+# spec:
+#   resourcePolicy:
+#     containerPolicies:
+#     - containerName: XXXX
+#       controlledResources:
+#       - cpu
+#       - memory
+#       controlledValues: RequestsAndLimits
+#       maxAllowed:
+#         cpu: "1"
+#         memory: 500Mi
+#       minAllowed:
+#         cpu: "0.2"
+#         memory: 200Mi
+#     - containerName: ""
+#       mode: "Off"
+#     - containerName: proxy
+#       controlledResources:
+#       - cpu
+#       controlledValues: RequestsOnly
+#       maxAllowed:
+#         cpu: "1"
+#       minAllowed:
+#         cpu: "0.2"
+#       mode: Auto
+#   targetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: m1-nginx
+#   updatePolicy:
+#     minReplicas: 2
+#     updateMode: Auto
+#```
+#
+# The default config will not create the Vertical Pod Autoscaler by setting enabled = false,
+# the default values are set so if enabled is true the verticalPodAutoscaler has valid values
+# and is running in recommendation only mode
+verticalPodAutoscaler:
+  enabled: false
+  updateMode: "Off"
+  minReplicas: 2
+  mainContainerResourcePolicy:
+    controlledResources: ["cpu", "memory"]
+    controlledValues: "RequestsAndLimits"
+  extraResourcePolicy:
+  - containerName: ""
+    mode: "Off"
+
 # customResources is a map that lets you define Kubernetes resources you want installed and configured as part of this chart.
 # The expected keys of customResources are:
 #   - enabled   (bool) : Whether or not the provided custom resource definitions should be created.
@@ -713,8 +991,36 @@ horizontalPodAutoscaler:
 customResources:
   enabled: false
   resources: {}
+
 # fullnameOverride is a string that allows overriding the default fullname that appears as the
 # application name and is used as the application name by kubernetes.
 fullnameOverride: ""
-image:
-  tag: master
+
+#----------------------------------------------------------------------------------------------------------------------
+# GOOGLE SPECIFIC VALUES
+# google specifies Google (GKE) specific configuration to be set via arguments/env. variables
+#----------------------------------------------------------------------------------------------------------------------
+google:
+  # managedCertificate can be used to provision a Google Managed Certificate. Associate the ManagedCertificate object
+  # to an Ingress by adding an annotation 'networking.gke.io/managed-certificates' to the Ingress.
+  #
+  # The expected keys are:
+  #   - enabled      (bool)   (required) : Whether or not the ManagedCertificate resource should be created.
+  #   - domainName   (string)            : Specifies the domain that the SSL certificate will be created for
+  #   - name         (string)            : Specifies the name of the SSL certificate that you reference in Ingress with
+  #                                        networking.gke.io/managed-certificates: name
+  #
+  # The following example specifies a ManagedCertificate with a domain name 'api.acme.com' and name 'acme-cert':
+  #
+  # EXAMPLE:
+  #
+  # google:
+  #   managedCertificate:
+  #     enabled: true
+  #     name: acme-cert
+  #     domainName: api.acme.com
+  #
+  # NOTE: if you enable managedCertificate, then Ingress must also be enabled.
+  # Use a Google Managed Certificate. By default, turn off.
+  managedCertificate:
+    enabled: false

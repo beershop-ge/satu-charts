@@ -40,3 +40,21 @@
     {{- print "policy/v1beta1" -}}
   {{- end -}}
 {{- end -}}
+
+{{/* Get HorizontalPodAutoscaler API Version */}}
+{{- define "gruntwork.horizontalPodAutoscaler.apiVersion" -}}
+  {{- if and (.Capabilities.APIVersions.Has "autoscaling/v2") (semverCompare ">= 1.23-0" (include "gruntwork.kubeVersion" .)) -}}
+    {{- print "autoscaling/v2" -}}
+  {{- else -}}
+    {{- print "autoscaling/v2beta2" -}}
+  {{- end -}}
+{{- end -}}
+
+{{/* Get VertialPodAutoscaler API Version */}}
+{{- define "gruntwork.verticalPodAutoscaler.apiVersion" -}}
+  {{- if and (.Capabilities.APIVersions.Has "autoscaling.k8s.io/v1") (semverCompare ">= 1.23-0" (include "gruntwork.kubeVersion" .)) -}}
+    {{- print "autoscaling.k8s.io/v1" -}}
+  {{- else -}}
+    {{- print "autoscaling.k8s.io/v1beta2" -}}
+  {{- end -}}
+{{- end -}}

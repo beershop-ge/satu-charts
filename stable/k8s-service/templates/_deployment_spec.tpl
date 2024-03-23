@@ -43,6 +43,9 @@ We need this because certain sections are omitted if there are no volumes or env
     {{- $_ := set $hasInjectionTypes "hasVolume" true -}}
   {{- else if eq (index . "as") "environment" -}}
     {{- $_ := set $hasInjectionTypes "hasEnvVars" true -}}
+  {{- else if eq (index . "as") "csi" -}}
+    {{- $_ := set $hasInjectionTypes "hasEnvVars" true -}}
+    {{- $_ := set $hasInjectionTypes "hasVolume" true -}}
   {{- else if eq (index . "as") "envFrom" }}
     {{- $_ := set $hasInjectionTypes "hasEnvFrom" true -}}
   {{- else if eq (index . "as") "none" -}}
@@ -86,16 +89,20 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
     {{- range $key, $value := .Values.additionalDeploymentLabels }}
-    {{ $key }}: {{ $value }}
+    {{ $key }}: "{{ $value }}"
     {{- end}}
 {{- with .Values.deploymentAnnotations }}
   annotations:
 {{ toYaml . | indent 4 }}
 {{- end }}
 spec:
-  {{- if not .Values.horizontalPodAutoscaler.enabled }}
-  replicas: {{ if .isCanary }}{{ .Values.canary.replicaCount | default 1 }}{{ else }}{{ .Values.replicaCount }}{{ end }}
-  {{ end }}
+{{- if .isCanary }}
+  replicas: {{ .Values.canary.replicaCount | default 1 }}
+{{ else }}
+{{- if not .Values.horizontalPodAutoscaler.enabled }} 
+  replicas: {{ .Values.replicaCount }}
+{{- end }}
+{{- end }}
 {{- if .Values.deploymentStrategy.enabled }}
   strategy:
     type: {{ .Values.deploymentStrategy.type }}
@@ -116,8 +123,6 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ include "k8s-service.name" . }}
-        version: "{{ .Values.containerImage.tag }}"
         app.kubernetes.io/name: {{ include "k8s-service.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
         {{- if .isCanary }}
@@ -126,32 +131,13 @@ spec:
         gruntwork.io/deployment-type: main
         {{- end }}
         {{- range $key, $value := .Values.additionalPodLabels }}
-        {{ $key }}: {{ $value }}
+        {{ $key }}: "{{ $value }}"
         {{- end }}
 
-      {{- if or .Values.podAnnotations .Values.vault.enabled }}
+      {{- with .Values.podAnnotations }}
       annotations:
-        {{- if .Values.vault.enabled }}
-        instrumentation.opentelemetry.io/inject-dotnet: "net-instrumentation"
-        sidecar.opentelemetry.io/inject: "true"
-        vault.hashicorp.com/agent-init-first: "true"
-        vault.hashicorp.com/agent-inject: "true"
-        vault.hashicorp.com/role: "{{ include "k8s-service.name" . }}"
-        {{- if .Values.vault.volumePath }}
-        vault.hashicorp.com/secret-volume-path: "{{ .Values.vault.volumePath }}"
-        {{- end }}
-        {{- range $k, $secret := .Values.vault.secrets }}
-        vault.hashicorp.com/agent-inject-secret-{{ $secret.mountFileName }}: "{{ $secret.name }}"
-        vault.hashicorp.com/agent-inject-template-{{ $secret.mountFileName }}: |
-          {{`{{- with secret "` }}{{ $secret.name  }}{{`" -}}{{ .Data.data| toJSON }}{{- end }}`}}
-        {{- end }}
-        {{- end }}
-        {{- range $key, $value := .Values.podAnnotations }}
-        {{ $key }}: {{ $value }}
-        {{- end }}
-
+{{ toYaml . | indent 8 }}
       {{- end }}
-
     spec:
       {{- if gt (len .Values.serviceAccount.name) 0 }}
       serviceAccountName: "{{ .Values.serviceAccount.name }}"
@@ -163,6 +149,14 @@ spec:
       securityContext:
 {{ toYaml .Values.podSecurityContext | indent 8 }}
       {{- end}}
+      {{- if .Values.hostAliases }}
+      hostAliases:
+{{ toYaml .Values.hostAliases | indent 8 }}
+      {{- end }}
+
+      {{- if .Values.dnsPolicy }}
+      dnsPolicy: {{ .Values.dnsPolicy }}
+      {{- end }}
 
       containers:
         {{- if .isCanary }}
@@ -234,6 +228,11 @@ spec:
             {{- end }}
           {{- end }}
 
+          {{- if .Values.startupProbe }}
+          startupProbe:
+{{ toYaml .Values.startupProbe | indent 12 }}
+          {{- end }}
+
           {{- if .Values.livenessProbe }}
           livenessProbe:
 {{ toYaml .Values.livenessProbe | indent 12 }}
@@ -275,22 +274,6 @@ spec:
           {{- /* START ENV VAR LOGIC */ -}}
           {{- if index $hasInjectionTypes "hasEnvVars" }}
           env:
-            - name: KUBERNETES_POD_NAME
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.name
-            - name: KUBERNETES_NAMESPACE
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.namespace
-            - name: KUBERNETES_POD_UID
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.uid
-            - name: KUBERNETES_NODE_NAME
-              valueFrom:
-                fieldRef:
-                  fieldPath: spec.nodeName
           {{- end }}
           {{- range $key, $value := .Values.envVars }}
             - name: {{ $key }}
@@ -311,9 +294,9 @@ spec:
             {{- end }}
           {{- end }}
           {{- range $name, $value := .Values.secrets }}
-            {{- if eq $value.as "environment" }}
+            {{- if or (eq $value.as "environment") (eq $value.as "csi") }}
             {{- range $secretKey, $keyEnvVarConfig := $value.items }}
-            - name: {{ required "envVarName is required on secrets items when using environment" $keyEnvVarConfig.envVarName | quote }}
+            - name: {{ required "envVarName is required on secrets items when using environment or csi" $keyEnvVarConfig.envVarName | quote }}
               valueFrom:
                 secretKeyRef:
                   name: {{ $name }}
@@ -353,12 +336,13 @@ spec:
             {{- end }}
           {{- end }}
           {{- range $name, $value := .Values.secrets }}
-            {{- if eq $value.as "volume" }}
+            {{- if or (eq $value.as "volume") (eq $value.as "csi") }}
             - name: {{ $name }}-volume
               mountPath: {{ quote $value.mountPath }}
               {{- if $value.subPath }}
               subPath: {{ quote $value.subPath }}
               {{- end }}
+              readOnly: {{ $value.readOnly }}
             {{- end }}
           {{- end }}
           {{- range $name, $value := .Values.persistentVolumes }}
@@ -441,6 +425,15 @@ spec:
               {{- end }}
             {{- end }}
       {{- end }}
+      {{- if eq $value.as "csi" }}
+        - name: {{ $name }}-volume
+          csi: 
+            readOnly: {{ $value.readOnly }}
+            driver:  {{ $value.csi.driver }}
+            volumeAttributes:
+              secretProviderClass: {{ $value.csi.secretProviderClass }}
+
+      {{- end }}    
     {{- end }}
     {{- range $name, $value := .Values.persistentVolumes }}
         - name: {{ $name }}
@@ -465,6 +458,11 @@ spec:
 
     {{- with .Values.affinity }}
       affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+
+    {{- with .Values.priorityClassName }}
+      priorityClassName:
 {{ toYaml . | indent 8 }}
     {{- end }}
 
