@@ -3,8 +3,7 @@
 # Declare variables to be passed into your templates.
 
 # Pass all secret values here
-secrets:
-  ENVVARIABLE1: "value1"
+secrets: ""
 
 replicaCount: 1
 
