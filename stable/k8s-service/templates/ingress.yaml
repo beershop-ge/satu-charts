@@ -1,101 +1,35 @@
-{{- /*
-If the operator configures the ingress input variable, then also create an Ingress resource that will route to the
-service. Note that Ingress can only route to a Service, so the operator must also configure a Service.
-*/ -}}
 {{- if .Values.ingress.enabled -}}
-
-{{- /*
-We declare some variables defined on the Values. These are reused in `with` and `range` blocks where the scoped variable
-(`.`) is rebound within the block.
-*/ -}}
-{{- $fullName := include "k8s-service.fullname" . -}}
-{{- $ingressAPIVersion := include "gruntwork.ingress.apiVersion" . -}}
-{{- $ingressPath := .Values.ingress.path -}}
-{{- $ingressPathType := .Values.ingress.pathType -}}
-{{- $additionalPathsHigherPriority := .Values.ingress.additionalPathsHigherPriority }}
-{{- $additionalPaths := .Values.ingress.additionalPaths }}
-{{- $servicePort := .Values.ingress.servicePort -}}
-{{- $baseVarsForBackend := dict "fullName" $fullName "ingressAPIVersion" $ingressAPIVersion -}}
-
-apiVersion: {{ $ingressAPIVersion }}
+apiVersion: {{ .Values.ingress.apiVersion }}
 kind: Ingress
 metadata:
-  name: {{ $fullName }}
+  name: {{ include "k8s-service.fullname" . }}
   labels:
     gruntwork.io/app-name: {{ .Values.applicationName }}
-    # These labels are required by helm. You can read more about required labels in the chart best practices guide:
-    # https://docs.helm.sh/chart_best_practices/#standard-labels
     app.kubernetes.io/name: {{ include "k8s-service.name" . }}
     helm.sh/chart: {{ include "k8s-service.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- if .Values.ingress.annotations }}
-{{- with .Values.ingress.annotations }}
   annotations:
-{{ toYaml . | indent 4 }}
-{{- end }}
+{{ toYaml .Values.ingress.annotations | indent 4 }}
 {{- end }}
 spec:
 {{- if .Values.ingress.tls }}
-{{- with .Values.ingress.tls }}
   tls:
-{{ toYaml . | indent 4}}
-{{- end }}
+{{ toYaml .Values.ingress.tls | indent 4 }}
 {{- end }}
   rules:
-    {{- if .Values.ingress.hosts }}
-    {{- range .Values.ingress.hosts }}
-    - host: {{ . | quote }}
+{{- range .Values.ingress.hosts }}
+    - host: {{ .host | quote }}
       http:
         paths:
-          {{- range $additionalPathsHigherPriority }}
+{{- range .paths }}
           - path: {{ .path }}
-            {{- if and (eq $ingressAPIVersion "networking.k8s.io/v1") .pathType }}
+            {{- if .pathType }}
             pathType: {{ .pathType }}
             {{- end }}
             backend:
-              {{- include "gruntwork.ingress.backend" (merge . $baseVarsForBackend) }}
-          {{- end }}
-          - path: {{ $ingressPath }}
-            {{- if and (eq $ingressAPIVersion "networking.k8s.io/v1") $ingressPathType }}
-            pathType: {{ $ingressPathType }}
-            {{- end }}
-            backend:
-              {{- include "gruntwork.ingress.backend" (dict "serviceName" $fullName "servicePort" $servicePort | merge $baseVarsForBackend) }}
-          {{- range $additionalPaths }}
-          - path: {{ .path }}
-            {{- if and (eq $ingressAPIVersion "networking.k8s.io/v1") .pathType }}
-            pathType: {{ .pathType }}
-            {{- end }}
-            backend:
-              {{- include "gruntwork.ingress.backend" (merge . $baseVarsForBackend) }}
-          {{- end }}
-    {{- end }}
-    {{- else }}
-    - http:
-        paths:
-          {{- range $additionalPathsHigherPriority }}
-          - path: {{ .path }}
-            {{- if and (eq $ingressAPIVersion "networking.k8s.io/v1") .pathType }}
-            pathType: {{ .pathType }}
-            {{- end }}
-            backend:
-              {{- include "gruntwork.ingress.backend" (merge . $baseVarsForBackend) }}
-          {{- end }}
-          - path: {{ $ingressPath }}
-            {{- if and (eq $ingressAPIVersion "networking.k8s.io/v1") $ingressPathType }}
-            pathType: {{ $ingressPathType }}
-            {{- end }}
-            backend:
-              {{- include "gruntwork.ingress.backend" (dict "serviceName" $fullName "servicePort" $servicePort | merge $baseVarsForBackend) }}
-          {{- range $additionalPaths }}
-          - path: {{ .path }}
-            {{- if and (eq $ingressAPIVersion "networking.k8s.io/v1") .pathType }}
-            pathType: {{ .pathType }}
-            {{- end }}
-            backend:
-              {{- include "gruntwork.ingress.backend" (merge . $baseVarsForBackend) }}
-          {{- end }}
-
-    {{- end }}
+              {{- include "gruntwork.ingress.backend" (dict "serviceName" $.Values.applicationName "servicePort" $.Values.service.ports.app.port) }}
+{{- end }}
+{{- end }}
 {{- end }}
