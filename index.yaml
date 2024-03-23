@@ -3,7 +3,7 @@ entries:
   api:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-03-23T20:32:23.702645377Z"
+    created: "2024-03-23T20:51:12.263736802Z"
     description: A Fastapi Helm chart for Kubernetes
     digest: 42ea36ee1edd909df8a922b635cd2fbcf9c3ea076132ce25dc637f1d61edb29a
     name: api
@@ -14,9 +14,9 @@ entries:
   demo-chart-test:
   - apiVersion: v2
     appVersion: 1.16.3
-    created: "2024-03-23T20:32:23.703073959Z"
+    created: "2024-03-23T20:51:12.264209185Z"
     description: A Helm chart for Kubernetes
-    digest: 6ef2d251d372bc86b7311b3b80b25326ec2407d07b51225999ed3bdbaa57f1fe
+    digest: 2b4b4bf0f0016a39feb3d2f2db7de58ae5b7361b5e7737880362d4bbe0293ba6
     name: demo-chart-test
     type: application
     urls:
@@ -25,9 +25,9 @@ entries:
   k8s-api:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-03-23T20:32:23.703438781Z"
+    created: "2024-03-23T20:51:12.264578315Z"
     description: A Fastapi Helm chart for Kubernetes
-    digest: cbb5fe0f3fe9cd06351ef690f9206d75a495b2061d1d1ba627ef808b27966854
+    digest: caaa7e8031b4e9de010f72d79b611d44ff96343c7dc51bce04c8f7804abba2f5
     name: k8s-api
     type: application
     urls:
@@ -35,7 +35,20 @@ entries:
     version: 0.1.0
   k8s-service:
   - apiVersion: v1
-    created: "2024-03-23T20:32:23.710146328Z"
+    created: "2024-03-23T20:51:12.272956845Z"
+    description: A Helm chart to package your application container for Kubernetes
+    digest: c470f9311b6de9c0030b647d426fdea45a1b6a021050d68ebbbbe2eecc18b9d5
+    home: https://github.com/gruntwork-io/helm-kubernetes-services
+    maintainers:
+    - email: info@gruntwork.io
+      name: Gruntwork
+      url: https://gruntwork.io
+    name: k8s-service
+    urls:
+    - https://satu-com-ge.github.io/satu-charts/k8s-service-0.1.100.tgz
+    version: 0.1.100
+  - apiVersion: v1
+    created: "2024-03-23T20:51:12.270760339Z"
     description: A Helm chart to package your application container for Kubernetes
     digest: b187fc400d3b8bd27a88b3b5e4c9b5b909a2414058f82737c34f88618bf32815
     home: https://github.com/gruntwork-io/helm-kubernetes-services
@@ -47,7 +60,7 @@ entries:
     - https://satu-com-ge.github.io/satu-charts/k8s-service-0.0.27.tgz
     version: 0.0.27
   - apiVersion: v1
-    created: "2024-03-23T20:32:23.708802925Z"
+    created: "2024-03-23T20:51:12.269435052Z"
     description: A Helm chart to package your application container for Kubernetes
     digest: 7be98e20d78d9473a88759dad733513bb5ed5002fed4da040662b008971fc7b9
     home: https://github.com/gruntwork-io/helm-kubernetes-services
@@ -59,7 +72,7 @@ entries:
     - https://satu-com-ge.github.io/satu-charts/k8s-service-0.0.26.tgz
     version: 0.0.26
   - apiVersion: v1
-    created: "2024-03-23T20:32:23.707676679Z"
+    created: "2024-03-23T20:51:12.268314999Z"
     description: A Helm chart to package your application container for Kubernetes
     digest: 2608e8c93c05807ac2ff39430e4a3fb760881204ea398e33de4357b35df1213e
     home: https://github.com/gruntwork-io/helm-kubernetes-services
@@ -71,7 +84,7 @@ entries:
     - https://satu-com-ge.github.io/satu-charts/k8s-service-0.0.25.tgz
     version: 0.0.25
   - apiVersion: v1
-    created: "2024-03-23T20:32:23.706472596Z"
+    created: "2024-03-23T20:51:12.266968743Z"
     description: A Helm chart to package your application container for Kubernetes
     digest: 8ca4ec199ac2cf7f812fec5e0a9d21341a92b1194a6d29f37e09877984fc5558
     home: https://github.com/gruntwork-io/helm-kubernetes-services
@@ -83,7 +96,7 @@ entries:
     - https://satu-com-ge.github.io/satu-charts/k8s-service-0.0.24.tgz
     version: 0.0.24
   - apiVersion: v1
-    created: "2024-03-23T20:32:23.70527696Z"
+    created: "2024-03-23T20:51:12.265798245Z"
     description: A Helm chart to package your application container for Kubernetes
     digest: 515418fa5aa8735c85e6228de0f971a5aeced5c1836cc9e11600cd39a76f2135
     home: https://github.com/gruntwork-io/helm-kubernetes-services
@@ -94,4 +107,4 @@ entries:
     urls:
     - https://satu-com-ge.github.io/satu-charts/k8s-service-0.0.23.tgz
     version: 0.0.23
-generated: "2024-03-23T20:32:23.702146554Z"
+generated: "2024-03-23T20:51:12.263166305Z"
