@@ -5,4 +5,4 @@ maintainers:
 - email: chago19911@gmail.com
   name: Platform Omege
 name: k8s-service
-version: 0.0.23
+version: 0.0.24
