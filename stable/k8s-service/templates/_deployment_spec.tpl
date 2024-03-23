@@ -6,7 +6,7 @@ context:
 - Chart
 - isCanary (a boolean indicating if we are rendering the canary deployment or not)
 You can construct this context using dict:
-(dict "Values" .Values "Release" .Release "Chart" .Chart "isCanary" true)
+(dict "Values" .Values "Release" .Release "Chart" .Chart "isCanary" false)
 */ -}}
 {{- define "k8s-service.deploymentSpec" -}}
 {{- /*
