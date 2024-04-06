@@ -510,6 +510,34 @@ envVars: {}
 #         fieldPath: metadata.uid
 additionalContainerEnv: {}
 
+
+# Vault is a tool for securely accessing secrets. A secret is anything that you want to tightly control access to, such as API keys, passwords, certificates, and more.
+# By enabling the vault, The Vault Agent Injector alters pod specifications to include Vault Agent containers that render Vault secrets to a shared memory volume using Vault Agent Templates.
+# By rendering secrets to a shared volume, containers within the pod can consume Vault secrets without being Vault aware.
+# NOTE: Vault service should be configured in the cluster.
+# The expected keys are:
+#   - enabled     (bool)         (required)  : Whether or not the vault injection should be enabled.
+#   - role        (string)       (required)  : The Vault role used to access those secrets.
+#   - volumePath  (string)       (required)  : Configures where on the filesystem a secret will be rendered
+
+#   - secrets                (list[map])  (required)  : List of vault secrets that need to mount to the pod as volume
+#   - secrets: name          (string)     (required)  : Name of the Vault secret that need to mount to the filesystem
+#   - secrets: mountFileName (string)     (required)  : Name of the file to which the vault secret mount to the filesystem
+#
+# Example
+# vault:
+#   enabled: false
+#   role: ""
+#   volumePath: ""
+#   secrets:
+#     - name: "kv/VAULT_SECRET_NAME"
+#       mountFileName: "app.json"
+vault:
+  enabled: false
+  role: ""
+  volumePath: ""
+  secrets: {}
+
 # configMaps is a map that specifies the ConfigMap resources that should be exposed to the main application container. Each
 # entry in the map represents a ConfigMap resource. The key refers to the name of the ConfigMap that should be exposed,
 # with the value specifying how to expose the ConfigMap. The value is also a map and has the following attributes:
