@@ -134,47 +134,24 @@ spec:
         {{ $key }}: "{{ $value }}"
         {{- end }}
 
-#      {{- with .Values.podAnnotations }}
-#      annotations:
-#{{ toYaml . | indent 8 }}
-#      {{- end }}
-#    spec:
-#      {{- if gt (len .Values.serviceAccount.name) 0 }}
-#      serviceAccountName: "{{ .Values.serviceAccount.name }}"
-#      {{- end }}
-#      {{- if hasKey .Values.serviceAccount "automountServiceAccountToken" }}
-#      automountServiceAccountToken : {{ .Values.serviceAccount.automountServiceAccountToken }}
-#      {{- end }}
-#      {{- if .Values.podSecurityContext }}
-#      securityContext:
-#{{ toYaml .Values.podSecurityContext | indent 8 }}
-#      {{- end}}
-#      {{- if .Values.hostAliases }}
-#      hostAliases:
-#{{ toYaml .Values.hostAliases | indent 8 }}
-#      {{- end }}
-
-{{- if or .Values.podAnnotations .Values.vault.enabled }}
+      {{- with .Values.podAnnotations }}
       annotations:
-        {{- if .Values.vault.enabled }}
-        instrumentation.opentelemetry.io/inject-dotnet: "net-instrumentation"
-        sidecar.opentelemetry.io/inject: "true"
-        vault.hashicorp.com/agent-init-first: "true"
-        vault.hashicorp.com/agent-inject: "true"
-        vault.hashicorp.com/role: "{{ include "k8s-service.name" . }}"
-        {{- if .Values.vault.volumePath }}
-        vault.hashicorp.com/secret-volume-path: "{{ .Values.vault.volumePath }}"
-        {{- end }}
-        {{- range $k, $secret := .Values.vault.secrets }}
-        vault.hashicorp.com/agent-inject-secret-{{ $secret.mountFileName }}: "{{ $secret.name }}"
-        vault.hashicorp.com/agent-inject-template-{{ $secret.mountFileName }}: |
-          {{`{{- with secret "` }}{{ $secret.name  }}{{`" -}}{{ .Data.data| toJSON }}{{- end }}`}}
-        {{- end }}
-        {{- end }}
-        {{- range $key, $value := .Values.podAnnotations }}
-        {{ $key }}: {{ $value }}
-        {{- end }}
-
+{{ toYaml . | indent 8 }}
+      {{- end }}
+    spec:
+      {{- if gt (len .Values.serviceAccount.name) 0 }}
+      serviceAccountName: "{{ .Values.serviceAccount.name }}"
+      {{- end }}
+      {{- if hasKey .Values.serviceAccount "automountServiceAccountToken" }}
+      automountServiceAccountToken : {{ .Values.serviceAccount.automountServiceAccountToken }}
+      {{- end }}
+      {{- if .Values.podSecurityContext }}
+      securityContext:
+{{ toYaml .Values.podSecurityContext | indent 8 }}
+      {{- end}}
+      {{- if .Values.hostAliases }}
+      hostAliases:
+{{ toYaml .Values.hostAliases | indent 8 }}
       {{- end }}
 
       {{- if .Values.dnsPolicy }}
