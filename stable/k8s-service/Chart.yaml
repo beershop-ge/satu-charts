@@ -6,6 +6,6 @@ description: A Helm chart to package your application container for Kubernetes
 version: 0.1.100
 home: https://github.com/gruntwork-io/helm-kubernetes-services
 maintainers:
-  - name: Gruntwork
-    email: info@gruntwork.io
-    url: https://gruntwork.io
+  - name: platform team
+    email: chago19911@gmail.com
+    url: satu.com.ge
