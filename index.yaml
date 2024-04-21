@@ -3,7 +3,7 @@ entries:
   api:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-04-21T19:50:14.075824974Z"
+    created: "2024-04-21T20:03:56.240125213Z"
     description: A Fastapi Helm chart for Kubernetes
     digest: 42ea36ee1edd909df8a922b635cd2fbcf9c3ea076132ce25dc637f1d61edb29a
     name: api
@@ -14,9 +14,9 @@ entries:
   demo-chart-test:
   - apiVersion: v2
     appVersion: 1.16.3
-    created: "2024-04-21T19:50:14.076256Z"
+    created: "2024-04-21T20:03:56.240546378Z"
     description: A Helm chart for Kubernetes
-    digest: 5052e22502310d8ed25d45c210eee71937b5880db894cf026a957fb0415c42bd
+    digest: be9fff0b52b14831b925f1a76e3eb1f197480d681e31d312abdea881805b29c6
     name: demo-chart-test
     type: application
     urls:
@@ -25,7 +25,17 @@ entries:
   jellyfin:
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2024-04-21T19:50:14.078001485Z"
+    created: "2024-04-21T20:03:56.243478358Z"
+    description: Jellyfin Media Server
+    digest: a9e1dd90a4c18b0c3c6f94418318dac5fa395bedb470b715e9a496a3b826b533
+    name: jellyfin
+    type: application
+    urls:
+    - https://satu-com-ge.github.io/satu-charts/jellyfin-0.7.0.tgz
+    version: 0.7.0
+  - apiVersion: v2
+    appVersion: "1.0"
+    created: "2024-04-21T20:03:56.243069316Z"
     description: Jellyfin Media Server
     digest: db285788df301d310ef085481d9c69d4d2f836f8133b428b4b36ce03c5004fc6
     name: jellyfin
@@ -35,7 +45,7 @@ entries:
     version: 0.6.0
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2024-04-21T19:50:14.077449553Z"
+    created: "2024-04-21T20:03:56.242678358Z"
     description: Jellyfin Media Server
     digest: 6d71e65966521ed09fa08450f72cd80c707ea0180aa9500221bef708c5f60ae9
     name: jellyfin
@@ -45,7 +55,7 @@ entries:
     version: 0.5.0
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2024-04-21T19:50:14.077068199Z"
+    created: "2024-04-21T20:03:56.242262744Z"
     description: Jellyfin Media Server
     digest: a45ad641bf38c58496ed1b3d235b88b625bfb45a9e48669362d6c44a402be719
     name: jellyfin
@@ -55,7 +65,7 @@ entries:
     version: 0.4.0
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2024-04-21T19:50:14.076677649Z"
+    created: "2024-04-21T20:03:56.241534558Z"
     description: Jellyfin Media Server
     digest: f98b882ce4939fe582b1b9109ea2dd4964d8249153b28178ad5925867d4d93ce
     name: jellyfin
@@ -66,9 +76,9 @@ entries:
   k8s-api:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-04-21T19:50:14.078376958Z"
+    created: "2024-04-21T20:03:56.243878833Z"
     description: A Fastapi Helm chart for Kubernetes
-    digest: df634179bede632f6404b7a092788b4f80b8166a1b8d06c647b66bd0f24d7c79
+    digest: 4aeb5a484fc9fe56028b721c55e06584b98c4e41b9837ff9d2ade7bfee2a478f
     name: k8s-api
     type: application
     urls:
@@ -76,9 +86,9 @@ entries:
     version: 0.1.0
   k8s-service:
   - apiVersion: v1
-    created: "2024-04-21T19:50:14.090388076Z"
+    created: "2024-04-21T20:03:56.257542389Z"
     description: A Helm chart to package your application container for Kubernetes
-    digest: 197922a5beb3d9e3cc2bc64a3baabd6cae684b67d75ae74652f9668f3ddc0e07
+    digest: 5390b5b16225e57e13ce491574a3d8f71b590ec2861d3bb883d9720965a272b2
     home: https://github.com/gruntwork-io/helm-kubernetes-services
     maintainers:
     - email: chago19911@gmail.com
@@ -89,7 +99,7 @@ entries:
     - https://satu-com-ge.github.io/satu-charts/k8s-service-10.09.91.tgz
     version: 10.09.91
   - apiVersion: v1
-    created: "2024-04-21T19:50:14.088652289Z"
+    created: "2024-04-21T20:03:56.255684811Z"
     description: A Helm chart to package your application container for Kubernetes
     digest: 27bf04fdf3cd16d7b3711eaa70509a21d43eb67106730446358bb8ca8e9cd1d0
     home: https://github.com/gruntwork-io/helm-kubernetes-services
@@ -102,7 +112,7 @@ entries:
     - https://satu-com-ge.github.io/satu-charts/k8s-service-0.1.101.tgz
     version: 0.1.101
   - apiVersion: v1
-    created: "2024-04-21T19:50:14.08690496Z"
+    created: "2024-04-21T20:03:56.253952325Z"
     description: A Helm chart to package your application container for Kubernetes
     digest: 872d892a3e945214a94c46090f44a1f48c0da2d741872bc44b88ca09df2a5916
     home: https://github.com/gruntwork-io/helm-kubernetes-services
@@ -115,7 +125,7 @@ entries:
     - https://satu-com-ge.github.io/satu-charts/k8s-service-0.1.100.tgz
     version: 0.1.100
   - apiVersion: v1
-    created: "2024-04-21T19:50:14.08509834Z"
+    created: "2024-04-21T20:03:56.251157961Z"
     description: A Helm chart to package your application container for Kubernetes
     digest: b187fc400d3b8bd27a88b3b5e4c9b5b909a2414058f82737c34f88618bf32815
     home: https://github.com/gruntwork-io/helm-kubernetes-services
@@ -127,7 +137,7 @@ entries:
     - https://satu-com-ge.github.io/satu-charts/k8s-service-0.0.27.tgz
     version: 0.0.27
   - apiVersion: v1
-    created: "2024-04-21T19:50:14.083018681Z"
+    created: "2024-04-21T20:03:56.249511803Z"
     description: A Helm chart to package your application container for Kubernetes
     digest: 7be98e20d78d9473a88759dad733513bb5ed5002fed4da040662b008971fc7b9
     home: https://github.com/gruntwork-io/helm-kubernetes-services
@@ -139,7 +149,7 @@ entries:
     - https://satu-com-ge.github.io/satu-charts/k8s-service-0.0.26.tgz
     version: 0.0.26
   - apiVersion: v1
-    created: "2024-04-21T19:50:14.081840968Z"
+    created: "2024-04-21T20:03:56.248072673Z"
     description: A Helm chart to package your application container for Kubernetes
     digest: 2608e8c93c05807ac2ff39430e4a3fb760881204ea398e33de4357b35df1213e
     home: https://github.com/gruntwork-io/helm-kubernetes-services
@@ -151,7 +161,7 @@ entries:
     - https://satu-com-ge.github.io/satu-charts/k8s-service-0.0.25.tgz
     version: 0.0.25
   - apiVersion: v1
-    created: "2024-04-21T19:50:14.080703189Z"
+    created: "2024-04-21T20:03:56.246565316Z"
     description: A Helm chart to package your application container for Kubernetes
     digest: 8ca4ec199ac2cf7f812fec5e0a9d21341a92b1194a6d29f37e09877984fc5558
     home: https://github.com/gruntwork-io/helm-kubernetes-services
@@ -163,7 +173,7 @@ entries:
     - https://satu-com-ge.github.io/satu-charts/k8s-service-0.0.24.tgz
     version: 0.0.24
   - apiVersion: v1
-    created: "2024-04-21T19:50:14.079556865Z"
+    created: "2024-04-21T20:03:56.245112401Z"
     description: A Helm chart to package your application container for Kubernetes
     digest: 515418fa5aa8735c85e6228de0f971a5aeced5c1836cc9e11600cd39a76f2135
     home: https://github.com/gruntwork-io/helm-kubernetes-services
@@ -177,9 +187,9 @@ entries:
   uptime-kuma:
   - apiVersion: v2
     appVersion: 1.23.11
-    created: "2024-04-21T19:50:14.091060624Z"
+    created: "2024-04-21T20:03:56.258198251Z"
     description: A self-hosted Monitoring tool like "Uptime-Robot".
-    digest: 1b8b9d7d40bbe0ae7bb86ac848c888c6ed507ce9e8db5a46761a003cdfb63f8e
+    digest: 67da595cf474752895d249c477e4a3452f5310bb28acb801cba993fc601bcbcc
     home: https://github.com/dirsigler/uptime-kuma-helm
     icon: https://raw.githubusercontent.com/louislam/uptime-kuma/master/public/icon.png
     maintainers:
@@ -192,4 +202,4 @@ entries:
     urls:
     - https://satu-com-ge.github.io/satu-charts/uptime-kuma-2.18.0.tgz
     version: 2.18.0
-generated: "2024-04-21T19:50:14.074379129Z"
+generated: "2024-04-21T20:03:56.239504468Z"
