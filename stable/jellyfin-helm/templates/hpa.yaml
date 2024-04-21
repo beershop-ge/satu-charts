@@ -4,7 +4,11 @@ kind: HorizontalPodAutoscaler
 metadata:
   name: {{ include "jellyfin.fullname" . }}
   labels:
-    {{- include "jellyfin.labels" . | nindent 4 }}
+    #{{- include "jellyfin.labels" . | nindent 4 }}
+    app.kubernetes.io/name: {{ include "jellyfin.name" . }}
+    helm.sh/chart: {{ include "jellyfin.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
@@ -17,12 +21,16 @@ spec:
     - type: Resource
       resource:
         name: cpu
+        target:
+          type: Utilization
         targetAverageUtilization: {{ .Values.autoscaling.targetCPUUtilizationPercentage }}
     {{- end }}
     {{- if .Values.autoscaling.targetMemoryUtilizationPercentage }}
     - type: Resource
       resource:
         name: memory
+        target:
+          type: Utilization
         targetAverageUtilization: {{ .Values.autoscaling.targetMemoryUtilizationPercentage }}
     {{- end }}
 {{- end }}
