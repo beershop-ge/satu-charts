@@ -38,69 +38,65 @@ spec:
               hostPort: 1900
               protocol: UDP
           {{- end }}
-          # livenessProbe:
-          #   tcpSocket:
-          #     port: http
-          # readinessProbe:
-          #   tcpSocket:
-          #     port: http
           volumeMounts:
+          {{- if .Values.persistence.config.enabled }}
             - mountPath: /config
               name: config
               {{- if .Values.persistence.config.subPath }}
               subPath: {{ .Values.persistence.config.subPath }}
               {{- end }}
+          {{- end }}
+          {{- if .Values.persistence.media.enabled }}
             - mountPath: /media
               name: media
               {{- if .Values.persistence.media.subPath }}
               subPath: {{ .Values.persistence.media.subPath }}
               {{- end }}
-            {{- range .Values.persistence.extraExistingClaimMounts }}
-            - name: {{ .name }}
-              mountPath: {{ .mountPath }}
-              readOnly: {{ .readOnly }}
-            {{- end }}
-            {{- if not .Values.persistence.config.enabled }}
-            - mountPath: /config
-              name: extra-config
-            {{- end }}
-            {{- if .Values.extraVolumeMounts }}
-            {{- toYaml .Values.extraVolumeMounts | nindent 12 }}
-            {{- end }}
+          {{- end }}
+          {{- range .Values.persistence.extraExistingClaimMounts }}
+          - name: {{ .name }}
+            mountPath: {{ .mountPath }}
+            readOnly: {{ .readOnly }}
+          {{- end }}
+          {{- if .Values.extraVolumeMounts }}
+          {{- toYaml .Values.extraVolumeMounts | nindent 12 }}
+          {{- end }}
           resources:
-            {{- toYaml .Values.resources | indent 12 }}
+{{ toYaml .Values.resources | indent 12 }}
       volumes:
-        - name: config
-          {{- if .Values.persistence.config.enabled }}
-          persistentVolumeClaim:
-            claimName: {{ if .Values.persistence.config.existingClaim }}{{ .Values.persistence.config.existingClaim }}{{- else }}{{ template "jellyfin.fullname" . }}-config{{- end }}
-          {{- else }}
-          emptyDir: {}
-          {{- end }}
-        - name: media
-          {{- if .Values.persistence.media.enabled }}
-          persistentVolumeClaim:
-            claimName: {{ if .Values.persistence.media.existingClaim }}{{ .Values.persistence.media.existingClaim }}{{- else }}{{ template "jellyfin.fullname" . }}-media{{- end }}
-          {{- else }}
-          emptyDir: {}
-          {{- end }}
-        {{- range .Values.persistence.extraExistingClaimMounts }}
-        - name: {{ .name }}
-          persistentVolumeClaim:
-            claimName: {{ .existingClaim }}
-        {{- end }}
-        {{- if .Values.extraVolumes }}
-        {{- toYaml .Values.extraVolumes | nindent 6 }}
-        {{- end }}
+      {{- if .Values.persistence.config.enabled }}
+      - name: config
+        persistentVolumeClaim:
+          claimName: {{ if .Values.persistence.config.existingClaim }}{{ .Values.persistence.config.existingClaim }}{{- else }}{{ template "jellyfin.fullname" . }}-config{{- end }}
+      {{- else }}
+      - name: config
+        emptyDir: {}
+      {{- end }}
+      {{- if .Values.persistence.media.enabled }}
+      - name: media
+        persistentVolumeClaim:
+          claimName: {{ if .Values.persistence.media.existingClaim }}{{ .Values.persistence.media.existingClaim }}{{- else }}{{ template "jellyfin.fullname" . }}-media{{- end }}
+      {{- else }}
+      - name: media
+        emptyDir: {}
+      {{- end }}
+      {{- range .Values.persistence.extraExistingClaimMounts }}
+      - name: {{ .name }}
+        persistentVolumeClaim:
+          claimName: {{ .existingClaim }}
+      {{- end }}
+      {{- if .Values.extraVolumes }}
+      {{- toYaml .Values.extraVolumes | nindent 6 }}
+      {{- end }}
     {{- with .Values.nodeSelector }}
       nodeSelector:
-        {{- toYaml . | indent 8 }}
+{{ toYaml . | indent 8 }}
     {{- end }}
     {{- with .Values.affinity }}
       affinity:
-        {{- toYaml . | indent 8 }}
+{{ toYaml . | indent 8 }}
     {{- end }}
     {{- with .Values.tolerations }}
       tolerations:
-        {{- toYaml . | indent 8 }}
+{{ toYaml . | indent 8 }}
     {{- end }}
