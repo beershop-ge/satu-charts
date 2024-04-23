@@ -18,6 +18,12 @@ fullnameOverride: ""
 # https://jellyfin.org/docs/general/networking/dlna.html
 enableDLNA: false
 
+envVariables: []
+  # - name: ENV_VARIABLE_NAME
+  #   value: "value"
+  # - name: ANOTHER_ENV_VARIABLE
+  #   value: "another_value"
+
 service:
   type: ClusterIP
   port: 8096
