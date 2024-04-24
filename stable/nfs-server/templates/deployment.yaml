@@ -29,16 +29,16 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
+          securityContext: {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports: 
-            {{- range .Values.containerPorts }}
-            - containerPort: {{ .port }}
-              name: {{ .name }}
-              protocol: {{ .protocol }}
-            {{- end }}
+            - containerPort: 2049
+              name: tcp-2049
+              protocol: TCP
+            - containerPort: 111
+              name: udp-111
+              protocol: UDP
           env: {{ toYaml .Values.env | nindent 12 }}
           volumeMounts: {{ toYaml .Values.volumeMounts | nindent 12 }}
       volumes: {{ toYaml .Values.volumes | nindent 8 }}
