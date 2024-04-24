@@ -43,7 +43,7 @@ volumes: []
   # - name: nfs-vol
   #   hostPath:
   #     path: "/nfs-vol"
-  #     emptyDir: {}
+  #     type: Directory
 
 env:
   # - name: SHARED_DIRECTORY
