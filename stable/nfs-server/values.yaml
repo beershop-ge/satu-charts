@@ -1,14 +1,14 @@
-# Default values for demo-chart-test.
+# Default values for nfs-server.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 2
+replicaCount: 1
 
 image:
-  repository: nginx
+  repository: itsthenetwork/nfs-server-alpine
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "latest"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -17,8 +17,6 @@ fullnameOverride: ""
 serviceAccount:
   # Specifies whether a service account should be created
   create: true
-  # Automatically mount a ServiceAccount's API credentials?
-  automount: true
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.
@@ -26,7 +24,6 @@ serviceAccount:
   name: ""
 
 podAnnotations: {}
-podLabels: {}
 
 podSecurityContext: {}
   # fsGroup: 2000
@@ -38,10 +35,27 @@ securityContext: {}
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 1000
+volumeMounts: []
+  # - mountPath: "/exports"
+  #   name: nfs-vol
+volumes: []
+  # - name: nfs-vol
+  #   hostPath:
+  #     path: "/nfs-vol"
+
+env:
+  # - name: SHARED_DIRECTORY
+  #   value: "/exports"
 
 service:
   type: ClusterIP
-  port: 80
+  ports: 
+    - name: tcp-2049
+      port: 2049
+      protocol: TCP
+    - name: udp-111
+      port: 111
+      protocol: UDP
 
 ingress:
   enabled: false
@@ -50,7 +64,7 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: satu.com.ge
+    - host: chart-example.local
       paths:
         - path: /
           pathType: ImplementationSpecific
@@ -71,34 +85,12 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
-livenessProbe:
-  httpGet:
-    path: /
-    port: http
-readinessProbe:
-  httpGet:
-    path: /
-    port: http
-
 autoscaling:
   enabled: false
   minReplicas: 1
   maxReplicas: 100
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
-
-# Additional volumes on the output Deployment definition.
-volumes: []
-# - name: foo
-#   secret:
-#     secretName: mysecret
-#     optional: false
-
-# Additional volumeMounts on the output Deployment definition.
-volumeMounts: []
-# - name: foo
-#   mountPath: "/etc/foo"
-#   readOnly: true
 
 nodeSelector: {}
 
