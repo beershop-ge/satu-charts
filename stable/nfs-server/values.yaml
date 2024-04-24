@@ -38,14 +38,23 @@ securityContext: {}
 volumeMounts: []
   # - mountPath: "/exports"
   #   name: nfs-vol
+
 volumes: []
   # - name: nfs-vol
   #   hostPath:
   #     path: "/nfs-vol"
+  #     type: emptyDir
 
 env:
   # - name: SHARED_DIRECTORY
   #   value: "/exports"
+containerPorts:
+  - name: tcp-2049
+    port: 2049
+    protocol: TCP
+  - name: udp-111
+    port: 111
+    protocol: UDP
 
 service:
   type: ClusterIP
