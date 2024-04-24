@@ -1,0 +1,6 @@
+apiVersion: v2
+appVersion: "1.0"
+description: filesbrowser helm chart
+name: filesbrowser
+version: 1.0.0
+type: application
