@@ -1,9 +1,9 @@
 
-{{- if and .Values.persistence.media.enabled (not .Values.persistence.media.existingClaim) }}
+{{- if and .Values.persistence.database.enabled (not .Values.persistence.database.existingClaim) }}
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ template "filesbrowser.fullname" . }}-media
+  name: {{ template "filesbrowser.fullname" . }}-database
   labels:
     app.kubernetes.io/name: {{ include "filesbrowser.name" . }}
     helm.sh/chart: {{ include "filesbrowser.chart" . }}
@@ -11,15 +11,15 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   accessModes:
-    - {{ .Values.persistence.media.accessMode | quote }}
+    - {{ .Values.persistence.database.accessMode | quote }}
   resources:
     requests:
-      storage: {{ .Values.persistence.media.size | quote }}
-{{- if .Values.persistence.media.storageClass }}
-{{- if (eq "-" .Values.persistence.media.storageClass) }}
+      storage: {{ .Values.persistence.database.size | quote }}
+{{- if .Values.persistence.database.storageClass }}
+{{- if (eq "-" .Values.persistence.database.storageClass) }}
   storageClassName: ""
 {{- else }}
-  storageClassName: "{{ .Values.persistence.media.storageClass }}"
+  storageClassName: "{{ .Values.persistence.database.storageClass }}"
 {{- end }}
 {{- end }}
 {{- end -}}

@@ -49,8 +49,8 @@ spec:
               {{- end }}
           {{- end }}
           {{- if .Values.persistence.media.enabled }}
-            - mountPath: /media
-              name: media
+            - mountPath: /database
+              name: database
               {{- if .Values.persistence.media.subPath }}
               subPath: {{ .Values.persistence.media.subPath }}
               {{- end }}
