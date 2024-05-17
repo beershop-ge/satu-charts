@@ -49,8 +49,8 @@ strategy: {}
 #       maxUnavailable: 25%
 
 # -- Node labels for pod assignment
-nodeSelector:
-  jellyfin: true
+nodeSelector: {}
+  #jellyfin: "true"
 
 # expects input structure as per specification
 # -- Affinity for pod assignment (https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#affinity-v1-core)
