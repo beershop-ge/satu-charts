@@ -99,6 +99,12 @@ resources:
       cpu: '2'
       memory: 6Gi
 
+envVariables: []
+  # - name: ENV_VARIABLE_NAME
+  #   value: "value"
+  # - name: ANOTHER_ENV_VARIABLE
+  #   value: "another_value"
+
 # -- Security context for the pod (https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)
 podSecurityContext:
   runAsGroup: 64710
