@@ -1,4 +1,15 @@
+global:
+  # -- Labels to apply to all resources.
+  commonLabels: {}
+  # -- Enable global debug mode
+  debug: false
+  # -- Reference to one or more secrets to be used when pulling images
+  #    (https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/)
+  imagePullSecrets: []
+  # -- Global Docker image registry
+  imageRegistry: ""
 # -- String to partially override `common.names.fullname` template (will maintain the release name)
+
 nameOverride: ""
 # -- String to fully override `common.names.fullname` template
 fullnameOverride: ""
