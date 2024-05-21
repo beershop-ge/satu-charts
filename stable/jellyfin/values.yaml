@@ -93,13 +93,13 @@ topologySpreadConstraints: []
 resources:
   jellyfin:
     # -- The requested resources for the container
-    requests:
-      cpu: 500m
-      memory: 512Mi
-    # -- The resources limits for the container
-    limits:
-      cpu: '2'
-      memory: 6Gi
+    # requests:
+    #   cpu: 500m
+    #   memory: 512Mi
+    # # -- The resources limits for the container
+    # limits:
+    #   cpu: '2'
+    #   memory: 6Gi
 
 envVariables: []
   # - name: ENV_VARIABLE_NAME
@@ -239,3 +239,10 @@ jellyfin:
   #       path: "/media-files"
   # -- Keep all transcoded files persistent.
   persistentTranscodes: false
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
