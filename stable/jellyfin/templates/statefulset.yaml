@@ -30,10 +30,8 @@ spec:
       {{- with .Values.global.imagePullSecrets }}
       imagePullSecrets: {{- toYaml . | nindent 8 }}
       {{- end }}
-      # securityContext: {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: jellyfin
-          # securityContext: {{- toYaml .Values.containerSecurityContext | nindent 12 }}
           image: {{ include "common.images.image" (dict "image" .Values.images.jellyfin "context" $) }}
           imagePullPolicy: {{ .Values.images.jellyfin.pullPolicy }}
           ports:

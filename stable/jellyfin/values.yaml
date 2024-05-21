@@ -108,7 +108,7 @@ envVariables: []
   #   value: "another_value"
 
 # # -- Security context for the pod (https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)
-# podSecurityContext: []
+#podSecurityContext: []
 #   # runAsGroup: 64710
 #   # runAsNonRoot: true
 #   # runAsUser: 64710
@@ -118,7 +118,7 @@ envVariables: []
 
 # # -- Security context for the jellyfin container
 # #    (https://kubernetes.io/docs/tasks/configure-pod-container/security-context/)
-# containerSecurityContext: []
+#containerSecurityContext: []
 #   # allowPrivilegeEscalation: false
 #   # capabilities:
 #   #   drop:
