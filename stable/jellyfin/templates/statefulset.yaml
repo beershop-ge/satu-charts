@@ -10,7 +10,7 @@ metadata:
     {{- with .Values.global.commonLabels }}{{ toYaml . | nindent 4 }}{{ end }}
 spec:
   serviceName: {{ include "common.names.fullname" . }}
-  replicas: 1
+  replicas: {{ .Values.global.replicaCount }}
   selector:
     matchLabels:
     {{- include "common.labels.matchLabels" . | nindent 6 }}
@@ -30,10 +30,10 @@ spec:
       {{- with .Values.global.imagePullSecrets }}
       imagePullSecrets: {{- toYaml . | nindent 8 }}
       {{- end }}
-      securityContext: {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      # securityContext: {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: jellyfin
-          securityContext: {{- toYaml .Values.containerSecurityContext | nindent 12 }}
+          # securityContext: {{- toYaml .Values.containerSecurityContext | nindent 12 }}
           image: {{ include "common.images.image" (dict "image" .Values.images.jellyfin "context" $) }}
           imagePullPolicy: {{ .Values.images.jellyfin.pullPolicy }}
           ports:
