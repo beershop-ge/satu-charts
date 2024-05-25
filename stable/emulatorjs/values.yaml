@@ -170,7 +170,19 @@ service:
 
   web:
     # -- `web` service port
-    port: 8096
+    port: 80
+    # -- Specify the nodePort value for the `LoadBalancer` and `NodePort` service types
+    nodePort: 0
+
+  rom:
+    # -- `web` service port
+    port: 3000
+    # -- Specify the nodePort value for the `LoadBalancer` and `NodePort` service types
+    nodePort: 0
+    
+  p2p:
+    # -- `web` service port
+    port: 4001
     # -- Specify the nodePort value for the `LoadBalancer` and `NodePort` service types
     nodePort: 0
 
