@@ -3,7 +3,7 @@ entries:
   api:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-05-25T19:05:19.476617983Z"
+    created: "2024-05-25T19:35:30.0722791Z"
     description: A Fastapi Helm chart for Kubernetes
     digest: 42ea36ee1edd909df8a922b635cd2fbcf9c3ea076132ce25dc637f1d61edb29a
     name: api
@@ -14,9 +14,9 @@ entries:
   code-server:
   - apiVersion: v2
     appVersion: 4.23.1
-    created: "2024-05-25T19:05:19.477088532Z"
+    created: "2024-05-25T19:35:30.073424061Z"
     description: A Helm chart for coder/code-server
-    digest: 518fb3af89b208d30ac382e5a1cee6ceccabfdb9206d80bd4d0e83936f9d37eb
+    digest: 5f9bff51d118924eb5967128428501378e481159e8b538e7fbd651f77dd2e1ea
     name: code-server
     type: application
     urls:
@@ -25,7 +25,7 @@ entries:
   demo-chart-test:
   - apiVersion: v2
     appVersion: 1.16.3
-    created: "2024-05-25T19:05:19.478102557Z"
+    created: "2024-05-25T19:35:30.074011587Z"
     description: A Helm chart for Kubernetes
     digest: 4b0c5a2b4d6d7d58fff21921be6d75c5bf9a16941a27bf75d2458fb10ecadc1b
     name: demo-chart-test
@@ -36,7 +36,20 @@ entries:
   emulatorjs:
   - apiVersion: v2
     appVersion: 10.9.0
-    created: "2024-05-25T19:05:19.480510445Z"
+    created: "2024-05-25T19:35:30.076851998Z"
+    description: retro games
+    digest: daca421fdc177dd4dc2526ab7f502c360ae317cb80ddfa5d71d52591e78d3b34
+    home: https://emulatorjs.org/
+    icon: https://github.com/linuxserver/emulatorjs/blob/f0ab089cf00398c865f75c1a0de558f6b278cab1/frontend/icon.png
+    kubeVersion: '>=1.20'
+    name: emulatorjs
+    type: application
+    urls:
+    - https://satu-com-ge.github.io/satu-charts/emulatorjs-0.4.0.tgz
+    version: 0.4.0
+  - apiVersion: v2
+    appVersion: 10.9.0
+    created: "2024-05-25T19:35:30.076152368Z"
     description: retro games
     digest: be89664bab32a316a05f2375985c91981798c0b5070ef1931fd649040dd0fc2a
     home: https://emulatorjs.org/
@@ -49,7 +62,7 @@ entries:
     version: 0.3.0
   - apiVersion: v2
     appVersion: 10.9.0
-    created: "2024-05-25T19:05:19.479820266Z"
+    created: "2024-05-25T19:35:30.075455793Z"
     description: retro games
     digest: 11b9bd742a565f8c6ba474579ba5e7b276efebbf9ff3262dbe1bfd8aa48e5e85
     home: https://emulatorjs.org/
@@ -62,7 +75,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: 10.9.0
-    created: "2024-05-25T19:05:19.47911072Z"
+    created: "2024-05-25T19:35:30.07474438Z"
     description: retro games
     digest: 4a5491e9aeb82c93015dcf9bd9272f65c5951adab74470f5cdcec142925045e5
     home: https://emulatorjs.org/
@@ -76,9 +89,9 @@ entries:
   filesbrowser:
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2024-05-25T19:05:19.481955606Z"
+    created: "2024-05-25T19:35:30.078337803Z"
     description: filesbrowser helm chart
-    digest: e1881e63fd694b920aae70734ae38957e4fd2ae488df9cd43dcedc179e87a4bf
+    digest: c1ccac1820ec11c63a7400d7c27135071b788cdacbec96b9676e1fcfa182405c
     name: filesbrowser
     type: application
     urls:
@@ -86,7 +99,7 @@ entries:
     version: 1.2.0
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2024-05-25T19:05:19.481357218Z"
+    created: "2024-05-25T19:35:30.077739504Z"
     description: filesbrowser helm chart
     digest: 2eb805aae779105f8bedf2e12047e979300b0c4c84e1644ee0628528a0ce1cf6
     name: filesbrowser
@@ -96,7 +109,7 @@ entries:
     version: 1.1.0
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2024-05-25T19:05:19.480937744Z"
+    created: "2024-05-25T19:35:30.077277792Z"
     description: filesbrowser helm chart
     digest: 6b844971248fe7e1539c9082b229ba9cc8318cc6b256cdec75741b5523f5db02
     name: filesbrowser
@@ -107,9 +120,9 @@ entries:
   home-assistant:
   - apiVersion: v2
     appVersion: 2024.5.3
-    created: "2024-05-25T19:05:19.482587797Z"
+    created: "2024-05-25T19:35:30.079202385Z"
     description: Automatically Updated Helm Chart for Home Assistant
-    digest: c5c2e0414af898f6052bf68ca8fa2ab811c02654c08eb2ea91bbb288cf33920a
+    digest: c53cb1a7e3d2ccf883aa4b3096394374d10b353643492100de170438d1565c4d
     icon: https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Home_Assistant_Logo.svg/519px-Home_Assistant_Logo.svg.png
     kubeVersion: '>=1.16.0-0'
     name: home-assistant
@@ -123,9 +136,9 @@ entries:
   jellyfin:
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2024-05-25T19:05:19.484262918Z"
+    created: "2024-05-25T19:35:30.081487578Z"
     description: Jellyfin Media Server
-    digest: ece7058971ef7924b85c3a696570e476601335619375304aeab0289d56152b61
+    digest: 27dd79ef6c41a8b2e70259bf75ef1d6a792ef2e001d3d6538aa7afe505657ed1
     name: jellyfin
     type: application
     urls:
@@ -133,7 +146,7 @@ entries:
     version: 0.13.0
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2024-05-25T19:05:19.483853002Z"
+    created: "2024-05-25T19:35:30.080903716Z"
     description: Jellyfin Media Server
     digest: e5835a8296d0aad746fa48da8b9f86cfd1dcfc1b5bc3658529b949cc635f4cd1
     name: jellyfin
@@ -143,7 +156,7 @@ entries:
     version: 0.12.0
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2024-05-25T19:05:19.483449828Z"
+    created: "2024-05-25T19:35:30.080310727Z"
     description: Jellyfin Media Server
     digest: ffa98ce52f931ab3f39a20cbdb40310be715d7ef8b45b04b4305bab671b12fe9
     name: jellyfin
@@ -153,7 +166,7 @@ entries:
     version: 0.11.0
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2024-05-25T19:05:19.483032138Z"
+    created: "2024-05-25T19:35:30.079767942Z"
     description: Jellyfin Media Server
     digest: bd96e355c85528cc58d6b92acb90f1e8ccfabfb079a6d8b90a295d51b974dc84
     name: jellyfin
@@ -163,7 +176,7 @@ entries:
     version: 0.10.0
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2024-05-25T19:05:19.488283141Z"
+    created: "2024-05-25T19:35:30.08574426Z"
     description: Jellyfin Media Server
     digest: 4e15c44a6f9d9bf913f8854e03a6d3634909bd30af528811da2975189d2dcefb
     name: jellyfin
@@ -173,7 +186,7 @@ entries:
     version: 0.9.0
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2024-05-25T19:05:19.487876631Z"
+    created: "2024-05-25T19:35:30.085342582Z"
     description: Jellyfin Media Server
     digest: 90545123f492718bfd31362693b437b7699b20b2a1e12e36fca041bfae26dbbd
     name: jellyfin
@@ -183,7 +196,7 @@ entries:
     version: 0.8.0
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2024-05-25T19:05:19.487460864Z"
+    created: "2024-05-25T19:35:30.084922079Z"
     description: Jellyfin Media Server
     digest: a9e1dd90a4c18b0c3c6f94418318dac5fa395bedb470b715e9a496a3b826b533
     name: jellyfin
@@ -193,7 +206,7 @@ entries:
     version: 0.7.0
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2024-05-25T19:05:19.487020191Z"
+    created: "2024-05-25T19:35:30.084500042Z"
     description: Jellyfin Media Server
     digest: db285788df301d310ef085481d9c69d4d2f836f8133b428b4b36ce03c5004fc6
     name: jellyfin
@@ -203,7 +216,7 @@ entries:
     version: 0.6.0
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2024-05-25T19:05:19.485907261Z"
+    created: "2024-05-25T19:35:30.084058829Z"
     description: Jellyfin Media Server
     digest: 6d71e65966521ed09fa08450f72cd80c707ea0180aa9500221bef708c5f60ae9
     name: jellyfin
@@ -213,7 +226,7 @@ entries:
     version: 0.5.0
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2024-05-25T19:05:19.485056731Z"
+    created: "2024-05-25T19:35:30.083592549Z"
     description: Jellyfin Media Server
     digest: a45ad641bf38c58496ed1b3d235b88b625bfb45a9e48669362d6c44a402be719
     name: jellyfin
@@ -223,7 +236,7 @@ entries:
     version: 0.4.0
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2024-05-25T19:05:19.484661012Z"
+    created: "2024-05-25T19:35:30.08296233Z"
     description: Jellyfin Media Server
     digest: f98b882ce4939fe582b1b9109ea2dd4964d8249153b28178ad5925867d4d93ce
     name: jellyfin
@@ -234,9 +247,9 @@ entries:
   jellyfin-statefull:
   - apiVersion: v2
     appVersion: 10.9.0
-    created: "2024-05-25T19:05:19.49195903Z"
+    created: "2024-05-25T19:35:30.089463631Z"
     description: Your media, your server, your way
-    digest: 0e8e27318147265bb35727cb686fb56170ae8f4e0505614a2e26cc0b186de4b9
+    digest: c9fd3e8681437d97052ddcff042f795f08161effd102a38c819f4bb532de2194
     home: https://jellyfin.org/
     icon: https://raw.githubusercontent.com/jellyfin/jellyfin-ux/master/branding/SVG/icon-transparent.svg
     kubeVersion: '>=1.20'
@@ -247,7 +260,7 @@ entries:
     version: 0.5.0
   - apiVersion: v2
     appVersion: 10.9.0
-    created: "2024-05-25T19:05:19.491291753Z"
+    created: "2024-05-25T19:35:30.088748401Z"
     description: Your media, your server, your way
     digest: 6c8666770a95bad931ce0a9ca388fa4be67b1bfe1bfd86e72de50874d73d1dfe
     home: https://jellyfin.org/
@@ -260,7 +273,7 @@ entries:
     version: 0.4.0
   - apiVersion: v2
     appVersion: 10.9.0
-    created: "2024-05-25T19:05:19.490594049Z"
+    created: "2024-05-25T19:35:30.088050183Z"
     description: Your media, your server, your way
     digest: e6f0cd835e14e7a5f4eb6f475085ca3de9cb0bbeead6e88b970237fb0df7514d
     home: https://jellyfin.org/
@@ -273,7 +286,7 @@ entries:
     version: 0.3.0
   - apiVersion: v2
     appVersion: 10.9.0
-    created: "2024-05-25T19:05:19.489865347Z"
+    created: "2024-05-25T19:35:30.087330555Z"
     description: Your media, your server, your way
     digest: 0f7aa92752130ed2cc755828f5a6e2ab8c8bb4904a484c9dc170701a73c2daf4
     home: https://jellyfin.org/
@@ -286,7 +299,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: 10.9.0
-    created: "2024-05-25T19:05:19.489165239Z"
+    created: "2024-05-25T19:35:30.086625995Z"
     description: Your media, your server, your way
     digest: 8cc269417a6d9aa84509cc4eff720f78627407f48b7d5a2d447d351d4fec9c6f
     home: https://jellyfin.org/
@@ -300,9 +313,9 @@ entries:
   k8s-api:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-05-25T19:05:19.492316979Z"
+    created: "2024-05-25T19:35:30.089860269Z"
     description: A Fastapi Helm chart for Kubernetes
-    digest: d1fc6be4f304df2bba439597a2d69868e76b138595200f820037eef5471f5b86
+    digest: 82be4771d7d1d6bf5e290ded1d90522a706e0223f341e9107d53cbb3624aa076
     name: k8s-api
     type: application
     urls:
@@ -310,9 +323,9 @@ entries:
     version: 0.1.0
   k8s-service:
   - apiVersion: v1
-    created: "2024-05-25T19:05:19.505371676Z"
+    created: "2024-05-25T19:35:30.103216562Z"
     description: A Helm chart to package your application container for Kubernetes
-    digest: cae7fb4448ee29f42609d94f384b708245da9ee1045a82d868380edd50ad6819
+    digest: f59ab440af1ac3fca6e3774dffbbbaa72dcbdb8d378de607b4abeed96dab1d62
     home: https://github.com/gruntwork-io/helm-kubernetes-services
     maintainers:
     - email: chago19911@gmail.com
@@ -323,7 +336,7 @@ entries:
     - https://satu-com-ge.github.io/satu-charts/k8s-service-10.09.91.tgz
     version: 10.09.91
   - apiVersion: v1
-    created: "2024-05-25T19:05:19.503299383Z"
+    created: "2024-05-25T19:35:30.1004607Z"
     description: A Helm chart to package your application container for Kubernetes
     digest: 27bf04fdf3cd16d7b3711eaa70509a21d43eb67106730446358bb8ca8e9cd1d0
     home: https://github.com/gruntwork-io/helm-kubernetes-services
@@ -336,7 +349,7 @@ entries:
     - https://satu-com-ge.github.io/satu-charts/k8s-service-0.1.101.tgz
     version: 0.1.101
   - apiVersion: v1
-    created: "2024-05-25T19:05:19.501535798Z"
+    created: "2024-05-25T19:35:30.098665672Z"
     description: A Helm chart to package your application container for Kubernetes
     digest: 872d892a3e945214a94c46090f44a1f48c0da2d741872bc44b88ca09df2a5916
     home: https://github.com/gruntwork-io/helm-kubernetes-services
@@ -349,7 +362,7 @@ entries:
     - https://satu-com-ge.github.io/satu-charts/k8s-service-0.1.100.tgz
     version: 0.1.100
   - apiVersion: v1
-    created: "2024-05-25T19:05:19.49978744Z"
+    created: "2024-05-25T19:35:30.096849444Z"
     description: A Helm chart to package your application container for Kubernetes
     digest: b187fc400d3b8bd27a88b3b5e4c9b5b909a2414058f82737c34f88618bf32815
     home: https://github.com/gruntwork-io/helm-kubernetes-services
@@ -361,7 +374,7 @@ entries:
     - https://satu-com-ge.github.io/satu-charts/k8s-service-0.0.27.tgz
     version: 0.0.27
   - apiVersion: v1
-    created: "2024-05-25T19:05:19.498606433Z"
+    created: "2024-05-25T19:35:30.095682401Z"
     description: A Helm chart to package your application container for Kubernetes
     digest: 7be98e20d78d9473a88759dad733513bb5ed5002fed4da040662b008971fc7b9
     home: https://github.com/gruntwork-io/helm-kubernetes-services
@@ -373,7 +386,7 @@ entries:
     - https://satu-com-ge.github.io/satu-charts/k8s-service-0.0.26.tgz
     version: 0.0.26
   - apiVersion: v1
-    created: "2024-05-25T19:05:19.49733639Z"
+    created: "2024-05-25T19:35:30.094508175Z"
     description: A Helm chart to package your application container for Kubernetes
     digest: 2608e8c93c05807ac2ff39430e4a3fb760881204ea398e33de4357b35df1213e
     home: https://github.com/gruntwork-io/helm-kubernetes-services
@@ -385,7 +398,7 @@ entries:
     - https://satu-com-ge.github.io/satu-charts/k8s-service-0.0.25.tgz
     version: 0.0.25
   - apiVersion: v1
-    created: "2024-05-25T19:05:19.49588095Z"
+    created: "2024-05-25T19:35:30.093213982Z"
     description: A Helm chart to package your application container for Kubernetes
     digest: 8ca4ec199ac2cf7f812fec5e0a9d21341a92b1194a6d29f37e09877984fc5558
     home: https://github.com/gruntwork-io/helm-kubernetes-services
@@ -397,7 +410,7 @@ entries:
     - https://satu-com-ge.github.io/satu-charts/k8s-service-0.0.24.tgz
     version: 0.0.24
   - apiVersion: v1
-    created: "2024-05-25T19:05:19.493515018Z"
+    created: "2024-05-25T19:35:30.092001633Z"
     description: A Helm chart to package your application container for Kubernetes
     digest: 515418fa5aa8735c85e6228de0f971a5aeced5c1836cc9e11600cd39a76f2135
     home: https://github.com/gruntwork-io/helm-kubernetes-services
@@ -411,9 +424,9 @@ entries:
   nfs-server:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-05-25T19:05:19.508319765Z"
+    created: "2024-05-25T19:35:30.105679961Z"
     description: A Helm chart for Kubernetes
-    digest: bb8e822e919d42f6257f13d52843405ea6a0860fa596d0c09f86bf9ff774c71f
+    digest: 3076c08a1730619bf6c424834e6cfa1b608ace04a7bf9ec286d42fdbb7bc304d
     name: nfs-server
     type: application
     urls:
@@ -421,7 +434,7 @@ entries:
     version: 0.8.0
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-05-25T19:05:19.507946548Z"
+    created: "2024-05-25T19:35:30.105313299Z"
     description: A Helm chart for Kubernetes
     digest: 629e407eb4301eaae4f860ae5aa05d3bc067325f1dffd69d814fb4997768f874
     name: nfs-server
@@ -431,7 +444,7 @@ entries:
     version: 0.7.0
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-05-25T19:05:19.507550317Z"
+    created: "2024-05-25T19:35:30.104921339Z"
     description: A Helm chart for Kubernetes
     digest: bc89dd2995c12e57907b9581efa95fc647cc7b5a21e065d3fb64fb9ed25d592b
     name: nfs-server
@@ -441,7 +454,7 @@ entries:
     version: 0.6.0
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-05-25T19:05:19.507121426Z"
+    created: "2024-05-25T19:35:30.104478524Z"
     description: A Helm chart for Kubernetes
     digest: bfb65f8c3d21b8b8c8f2c87415ab710e5df42d3b23c7aee740830c6ecd11861d
     name: nfs-server
@@ -451,7 +464,7 @@ entries:
     version: 0.3.0
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-05-25T19:05:19.506662999Z"
+    created: "2024-05-25T19:35:30.104081304Z"
     description: A Helm chart for Kubernetes
     digest: 83ea31c9fc4fcce8d28f94f53dbcd77e013932e9db8ea28b2974836392254554
     name: nfs-server
@@ -461,7 +474,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2024-05-25T19:05:19.506235691Z"
+    created: "2024-05-25T19:35:30.103666651Z"
     description: A Helm chart for Kubernetes
     digest: 98de6cf5f49205e758de34f1c556613103385dfe146c45e59111baf239c6eff1
     name: nfs-server
@@ -472,9 +485,9 @@ entries:
   uptime-kuma:
   - apiVersion: v2
     appVersion: 1.23.11
-    created: "2024-05-25T19:05:19.508915108Z"
+    created: "2024-05-25T19:35:30.106339957Z"
     description: A self-hosted Monitoring tool like "Uptime-Robot".
-    digest: 52d57e4f561774b66c6ec50a1e8f9850f07255bdd13f7ded9d02af38bb52f24e
+    digest: 5f02ebc813e9c6c111e350de732839dc16e1bea92809276a06337dc01ed83043
     home: https://github.com/dirsigler/uptime-kuma-helm
     icon: https://raw.githubusercontent.com/louislam/uptime-kuma/master/public/icon.png
     maintainers:
@@ -487,4 +500,4 @@ entries:
     urls:
     - https://satu-com-ge.github.io/satu-charts/uptime-kuma-2.18.0.tgz
     version: 2.18.0
-generated: "2024-05-25T19:05:19.476111065Z"
+generated: "2024-05-25T19:35:30.071765541Z"
