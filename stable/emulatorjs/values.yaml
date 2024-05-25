@@ -201,6 +201,8 @@ ingress:
   pathType: ImplementationSpecific
   # -- Enable TLS configuration for the hostname defined at apiIngress.hostname parameter
   tls: true
+  # -- tls secret name for tls true
+  secretName: global-satu-certs-new
   # -- The list of additional hostnames to be covered with this ingress record.
   extraHosts: []
   # -- Any additional paths that may need to be added to the ingress under the main host
