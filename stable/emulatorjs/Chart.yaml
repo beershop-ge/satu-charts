@@ -1,0 +1,11 @@
+apiVersion: v2
+type: application
+name: emulatorjs
+description: retro games
+version: 0.1.0
+# renovate: datasource=docker depName=ghcr.io/beluga-cloud/jellyfin/jellyfin
+appVersion: 10.9.0
+kubeVersion: '>=1.20'
+home: https://emulatorjs.org/
+icon: https://github.com/linuxserver/emulatorjs/blob/f0ab089cf00398c865f75c1a0de558f6b278cab1/frontend/icon.png
+

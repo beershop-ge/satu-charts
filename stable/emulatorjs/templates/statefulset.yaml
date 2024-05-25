@@ -1,0 +1,106 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "common.names.fullname" . }}
+  {{- with .Values.podAnnotations }}
+  annotations: {{- toYaml . | nindent 4 }}
+  {{- end }}
+  labels:
+    {{- include "common.labels.standard" . | nindent 4 }}
+    {{- with .Values.global.commonLabels }}{{ toYaml . | nindent 4 }}{{ end }}
+spec:
+  serviceName: {{ include "common.names.fullname" . }}
+  replicas: {{ .Values.global.replicaCount }}
+  selector:
+    matchLabels:
+    {{- include "common.labels.matchLabels" . | nindent 6 }}
+    {{- with .Values.podLabels }}{{ toYaml . | nindent 6 }}{{ end }}
+  {{- with .Values.strategy }}
+  updateStrategy: {{- toYaml . | nindent 4 }}
+  {{- end }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "common.labels.matchLabels" . | nindent 8 }}
+        {{- with .Values.podLabels }}{{ toYaml . | nindent 8 }}{{ end }}
+    spec:
+      {{- with .Values.global.imagePullSecrets }}
+      imagePullSecrets: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: emulatorjs
+          image: {{ include "common.images.image" (dict "image" .Values.images.emulatorjs "context" $) }}
+          imagePullPolicy: {{ .Values.images.emulatorjs.pullPolicy }}
+          ports:
+            - name: web
+              containerPort: 8096
+              protocol: TCP
+          env: 
+            {{- toYaml .Values.envVariables | nindent 12 }}
+          livenessProbe:
+            httpGet: &httpProbe
+              port: web
+              path: /health
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 10
+          readinessProbe:
+            httpGet: *httpProbe
+            periodSeconds: 10
+            timeoutSeconds: 10
+          resources: {{- toYaml .Values.resources.emulatorjs | nindent 12 }}
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: data
+              mountPath: /data
+            {{- range .Values.emulatorjs.extraDevices }}
+            - name: {{ . | trimAll "/" | replace "/" "-" | lower }}
+              mountPath: {{ . }}
+            {{- end }}
+            {{- range .Values.emulatorjs.mediaVolumes }}
+            - name: {{ .name }}
+              mountPath: /media/{{ .name }}
+              {{- if hasKey . "readOnly" }}
+              readOnly: {{ .readOnly }}
+              {{- else }}
+              readOnly: true
+              {{- end }}
+            {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: config
+          {{- if .Values.persistence.config.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ include "common.names.fullname" . }}-config
+          {{- else }}
+          emptyDir: { }
+          {{- end }}
+        - name: data
+          {{- if .Values.persistence.data.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ include "common.names.fullname" . }}-data
+          {{- else }}
+          emptyDir: { }
+          {{- end }}
+        {{- range .Values.emulatorjs.extraDevices }}
+        - name: {{ . | trimAll "/" | replace "/" "-" | lower }}
+          hostPath:
+            path: {{ . }}
+        {{- end }}
+        {{- range .Values.emulatorjs.mediaVolumes }}
+        - name: {{ .name }}
+          persistentVolumeClaim:
+            claimName: {{ include "common.names.fullname" $ }}-mediavol-{{ .name }}
+        {{- end }}
