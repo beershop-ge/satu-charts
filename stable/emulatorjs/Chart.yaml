@@ -2,7 +2,7 @@ apiVersion: v2
 type: application
 name: emulatorjs
 description: retro games
-version: 0.2.0
+version: 0.3.0
 # renovate: datasource=docker depName=ghcr.io/beluga-cloud/jellyfin/jellyfin
 appVersion: 10.9.0
 kubeVersion: '>=1.20'

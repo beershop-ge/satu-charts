@@ -46,17 +46,17 @@ spec:
               protocol: TCP
           env: 
             {{- toYaml .Values.envVariables | nindent 12 }}
-          livenessProbe:
-            httpGet: &httpProbe
-              port: web
-              path: /health
-            initialDelaySeconds: 30
-            periodSeconds: 30
-            timeoutSeconds: 10
-          readinessProbe:
-            httpGet: *httpProbe
-            periodSeconds: 10
-            timeoutSeconds: 10
+          # livenessProbe:
+          #   httpGet: &httpProbe
+          #     port: web
+          #     path: /health
+          #   initialDelaySeconds: 30
+          #   periodSeconds: 30
+          #   timeoutSeconds: 10
+          # readinessProbe:
+          #   httpGet: *httpProbe
+          #   periodSeconds: 10
+          #   timeoutSeconds: 10
           resources: {{- toYaml .Values.resources.emulatorjs | nindent 12 }}
           volumeMounts:
             - name: config
