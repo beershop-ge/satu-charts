@@ -1,0 +1,24 @@
+{{- if and .Values.persistence.config.enabled (not .Values.persistence.config.existingClaim) }}
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ template "jellyseerr.fullname" . }}-config
+  labels:
+    {{- include "jellyseerr.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    {{ toYaml .Values.persistence.config.accessModes | indent 4 }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.config.size | quote }}
+  {{- if .Values.persistence.config.storageClass }}
+  {{- if (eq "-" .Values.persistence.config.storageClass) }}
+  storageClassName: ""
+  {{- else }}
+  storageClassName: "{{ .Values.persistence.config.storageClass }}"
+  {{- end }}
+  {{- end }}
+  {{- if .Values.persistence.config.volumeName }}
+  volumeName: {{ .Values.persistence.config.volumeName }}
+  {{- end }}
+{{- end }}
