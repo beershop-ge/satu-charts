@@ -26,29 +26,20 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}
-          securityContext:
+      - name: {{ .Chart.Name }}
+        securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          args:
-            - "-config-file"
-            - "/config/config.yaml"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          env:
-            - name: MIKROTIK_EXPORTER_PORT
-              value: "9436"
-          volumeMounts:
-            - mountPath: /config/
-              name: config
-          ports:
-            - name: http
-              containerPort: 9436
-              protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /live
-              port: http
-          resources:
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        ports:
+          - name: http
+            containerPort: 49090
+            protocol: TCP
+        args:
+          - --cfg-dir
+          - /mktxp_config
+          - export
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
@@ -62,7 +53,10 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+        volumeMounts:
+          - name: {{ include "mikrotik-exporter.fullname" . }}
+            mountPath: /mktxp_config
       volumes:
-        - name: config
-          configMap:
-            name: {{ include "mikrotik-exporter.fullname" . }}
+        - name: {{ include "mikrotik-exporter.fullname" . }}
+          secret:
+            secretName: {{ include "mikrotik-exporter.fullname" . }}

@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: ogi4i/mikrotik-exporter
+  repository: ghcr.io/akpw/mktxp:latest
   pullPolicy: IfNotPresent
   tag: ""
 
@@ -33,7 +33,7 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 9436
+  port: 49090
 
 ingress:
   enabled: false
@@ -75,33 +75,68 @@ discovery:
     prometheus.io/scrape: "true"
     prometheus.io/scheme: "http"
 
-config:
-  devices:
-    - name: microtik-router
-      address: 192.168.88.1
-      username: admin
-      password: CH@go!234
-    - name: mikrotik-switch
-      address: 192.168.88.15
-      username: admin
-      password: 
-      features:
-        bgp: false
-        dhcp: true
-        dhcp_leases: true
-        health: true
-        routes: false
-        poe: true
-        ip_pools: true
-        sfp: false
-        w60g: false
-        wlan: false
-        wlan_stations: false
-        capsman: false
-        bridge_hosts: true
-        ethernet: true
-        ipsec: false
-        ospf_neighbors: false
-        lte: false
-        netwatch: false
-        conntrack: true
+_mktxp_conf: |
+  [MKTXP]
+      port = 49090
+      socket_timeout = 2
+
+      initial_delay_on_failure = 120
+      max_delay_on_failure = 900
+      delay_inc_div = 5
+
+      bandwidth = False         
+      bandwidth_test_interval = 600    
+      minimal_collect_interval = 5   
+      verbose_mode = False            
+      fetch_routers_in_parallel = False   
+      max_worker_threads = 5             
+      max_scrape_duration = 10       
+      total_max_scrape_duration = 30     
+
+mktxp_conf: |
+  [Sample-Router]
+      enabled = False        
+
+      hostname = localhost   
+      port = 8728             
+
+      username = username     
+      password = password
+      use_ssl = False                 
+      no_ssl_certificate = False      
+      ssl_certificate_verify = False  
+
+      installed_packages = True       
+      dhcp = True                     
+      dhcp_lease = True               
+
+      connections = True              
+      connection_stats = False        
+
+      pool = True                     
+      interface = True                
+
+      firewall = True                 
+      ipv6_firewall = False           
+      ipv6_neighbor = False           
+
+      poe = True                     
+      monitor = True                  
+      netwatch = True                 
+
+      public_ip = True               
+      route = True                    
+      wireless = True                 
+
+      wireless_clients = True         
+      capsman = True                  
+      capsman_clients = True          
+
+      kid_control_devices = False     
+
+      user = True                     
+      queue = True                    
+
+      remote_dhcp_entry = None        
+      use_comments_over_names = True  
+      check_for_updates = False      
