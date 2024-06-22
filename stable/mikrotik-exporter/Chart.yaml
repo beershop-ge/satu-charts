@@ -6,7 +6,7 @@ description: A Helm chart for Kubernetes
 type: application
 
 # renovate: image=ogi4i/mikrotik-exporter
-version: 0.2.0
+version: 0.3.0
 
 
 appVersion: "v1.1.2"
