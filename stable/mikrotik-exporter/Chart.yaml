@@ -1,0 +1,12 @@
+apiVersion: v2
+name: mikrotik-exporter
+description: A Helm chart for Kubernetes
+
+
+type: application
+
+# renovate: image=ogi4i/mikrotik-exporter
+version: 0.1.0
+
+
+appVersion: "v1.1.2"
