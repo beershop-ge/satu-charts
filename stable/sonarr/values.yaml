@@ -30,28 +30,32 @@ ingress:
        - sonarr.bananaspliff.org
 
 volumes:
-  - name: myvolume
-    persistentVolumeClaim:
-      claimName: myvolume
+  # - name: myvolume
+  #   persistentVolumeClaim:
+  #     claimName: myvolume
+  - name: nfs-vol-sonarr
+    nfs:
+      server: 192.168.88.232
+      path: /vmstorages/sonarr
 
 volumeMounts:
-  - name: myvolume
+  - name: nfs-vol-sonarr
     mountPath: "/config"
     subPath: "configs/sonarr"
-  - name: myvolume
+  - name: nfs-vol-sonarr
     mountPath: "/downloads/transmission"
     subPath: "downloads/transmission"
-  - name: myvolume
+  - name: nfs-vol-sonarr
     mountPath: "/tv"
     subPath: "medias/tv"
 
-resources:
-  requests:
-    memory: 128Mi
-    cpu: 0.1
-  limits:
-    memory: 256Mi
-    cpu: 0.5
+resources: {}
+  # requests:
+  #   memory: 128Mi
+  #   cpu: 0.1
+  # limits:
+  #   memory: 256Mi
+  #   cpu: 0.5
 
 nodeSelector: {}
 

@@ -3,7 +3,7 @@
 replicaCount: 1
 
 image:
-  repository: haugene/transmission-openvpn
+  repository: linuxserver/transmission
   tag: latest
   pullPolicy: IfNotPresent
 
@@ -80,22 +80,23 @@ volumes:
   - name: config
     secret:
       secretName: "openvpn-common-config"
-  - name: dev-tun
-    hostPath:
-      path: "/dev/net/tun"
+  - name: nfs-vol-transmission
+    nfs:
+      server: 192.168.88.232
+      path: /vmstorages/transmission
 
 volumeMounts:
     - name: myvolume
       mountPath: "/data"
       subPath: "configs/transmission-data"
-    - name: myvolume
+    - name: nfs-vol-transmission
       mountPath: "/downloads/transmission"
       subPath: "downloads/transmission"
     - name: config
       mountPath: "/etc/openvpn/custom/default.ovpn"
       subPath: "openvpn.conf"
-    - name: dev-tun
-      mountPath: "/dev/net/tun"
+    # - name: nfs-vol-transmission
+    #   mountPath: "/dev/net/tun"
 
 # Security context for container
 securityContext:

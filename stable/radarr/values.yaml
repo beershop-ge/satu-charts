@@ -30,28 +30,32 @@ ingress:
        - radarr.bananaspliff.org
 
 volumes:
-  - name: myvolume
-    persistentVolumeClaim:
-      claimName: myvolume
+  # - name: myvolume
+  #   persistentVolumeClaim:
+  #     claimName: myvolume
+  - name: nfs-vol-radarr
+    nfs:
+      server: 192.168.88.232
+      path: /vmstorages/radarr
 
 volumeMounts:
-  - name: myvolume
+  - name: nfs-vol-radarr
     mountPath: "/config"
     subPath: "configs/radarr"
-  - name: myvolume
+  - name: nfs-vol-radarr
     mountPath: "/downloads/transmission"
     subPath: "downloads/transmission"
-  - name: myvolume
+  - name: nfs-vol-radarr
     mountPath: "/movies"
     subPath: "medias/movies"
 
-resources:
-  requests:
-    memory: 128Mi
-    cpu: 0.1
-  limits:
-    memory: 256Mi
-    cpu: 0.5
+resources: {}
+  # requests:
+  #   memory: 128Mi
+  #   cpu: 0.1
+  # limits:
+  #   memory: 256Mi
+  #   cpu: 0.5
 
 nodeSelector: {}
 

@@ -30,25 +30,29 @@ ingress:
        - jackett.bananaspliff.org
 
 volumes:
-  - name: myvolume
-    persistentVolumeClaim:
-      claimName: myvolume
+  # - name: myvolume
+  #   persistentVolumeClaim:
+  #     claimName: myvolume
+  - name: nfs-vol-jackett
+    nfs:
+      server: 192.168.88.232
+      path: /vmstorages/jackett
 
 volumeMounts:
-  - name: myvolume
+  - name: nfs-vol-jackett
     mountPath: "/config"
     subPath: "configs/jackett"
-  - name: myvolume
+  - name: nfs-vol-jackett
     mountPath: "/downloads"
     subPath: "downloads/jackett"
 
-resources:
-  requests:
-    memory: 128Mi
-    cpu: 0.1
-  limits:
-    memory: 256Mi
-    cpu: 0.5
+resources: {}
+  # requests:
+  #   memory: 128Mi
+  #   cpu: 0.1
+  # limits:
+  #   memory: 256Mi
+  #   cpu: 0.5
 
 securityContext: {}
 
