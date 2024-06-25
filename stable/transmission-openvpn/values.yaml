@@ -39,6 +39,7 @@ env:
     value: "1000"
 
 service:
+  annotations: {}
   type: ClusterIP
   port: 80
 
