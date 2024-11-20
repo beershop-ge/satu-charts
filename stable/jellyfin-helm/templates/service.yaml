@@ -44,6 +44,14 @@ spec:
       port: {{ .Values.service.port }}
       protocol: TCP
       targetPort: http
+    - name: https
+      port: 8920
+      protocol: TCP
+      targetPort: https
+    - name: udp-dicovery
+      port: 7359
+      protocol: UDP
+      targetPort: udp-dicovery
 {{ if (and (eq .Values.service.type "NodePort") (not (empty .Values.service.nodePort))) }}
       nodePort: {{.Values.service.nodePort}}
 {{ end }}
