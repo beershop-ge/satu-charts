@@ -24,11 +24,11 @@ maintainers:
     email: _@8gears.com
     url: https://github.com/n8n-io
 
-dependencies:
-  - name: valkey
-    version: 2.4.7
-    repository: https://charts.bitnami.com/bitnami
-    condition: valkey.enabled
+# dependencies:
+#   - name: valkey
+#     version: 2.4.7
+#     repository: https://charts.bitnami.com/bitnami
+#     condition: valkey.enabled
 
 annotations:
   artifacthub.io/prerelease: "false"
