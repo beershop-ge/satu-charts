@@ -27,7 +27,7 @@ maintainers:
 dependencies:
   - name: valkey
     version: 2.4.7
-    repository: oci://registry-1.docker.io/bitnamicharts
+    repository: https://charts.bitnami.com/bitnami
     condition: valkey.enabled
 
 annotations:
