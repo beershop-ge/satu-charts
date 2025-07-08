@@ -9,7 +9,7 @@ entries:
     name: api
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/api-0.1.0.tgz
+    - https://charts.beershop.ge/api-0.1.0.tgz
     version: 0.1.0
   code-server:
   - apiVersion: v2
@@ -20,7 +20,7 @@ entries:
     name: code-server
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/code-server-3.19.1.tgz
+    - https://charts.beershop.ge/code-server-3.19.1.tgz
     version: 3.19.1
   demo-chart-test:
   - apiVersion: v2
@@ -31,7 +31,7 @@ entries:
     name: demo-chart-test
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/demo-chart-test-0.1.0.tgz
+    - https://charts.beershop.ge/demo-chart-test-0.1.0.tgz
     version: 0.1.0
   emulatorjs:
   - apiVersion: v2
@@ -45,7 +45,7 @@ entries:
     name: emulatorjs
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/emulatorjs-0.4.0.tgz
+    - https://charts.beershop.ge/emulatorjs-0.4.0.tgz
     version: 0.4.0
   - apiVersion: v2
     appVersion: 10.9.0
@@ -58,7 +58,7 @@ entries:
     name: emulatorjs
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/emulatorjs-0.3.0.tgz
+    - https://charts.beershop.ge/emulatorjs-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v2
     appVersion: 10.9.0
@@ -71,7 +71,7 @@ entries:
     name: emulatorjs
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/emulatorjs-0.2.0.tgz
+    - https://charts.beershop.ge/emulatorjs-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v2
     appVersion: 10.9.0
@@ -84,7 +84,7 @@ entries:
     name: emulatorjs
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/emulatorjs-0.1.0.tgz
+    - https://charts.beershop.ge/emulatorjs-0.1.0.tgz
     version: 0.1.0
   filesbrowser:
   - apiVersion: v2
@@ -95,7 +95,7 @@ entries:
     name: filesbrowser
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/filesbrowser-1.2.0.tgz
+    - https://charts.beershop.ge/filesbrowser-1.2.0.tgz
     version: 1.2.0
   - apiVersion: v2
     appVersion: "1.0"
@@ -105,7 +105,7 @@ entries:
     name: filesbrowser
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/filesbrowser-1.1.0.tgz
+    - https://charts.beershop.ge/filesbrowser-1.1.0.tgz
     version: 1.1.0
   - apiVersion: v2
     appVersion: "1.0"
@@ -115,7 +115,7 @@ entries:
     name: filesbrowser
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/filesbrowser-1.0.0.tgz
+    - https://charts.beershop.ge/filesbrowser-1.0.0.tgz
     version: 1.0.0
   home-assistant:
   - apiVersion: v2
@@ -131,7 +131,7 @@ entries:
     - https://github.com/cdr/code-server
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/home-assistant-0.2.58.tgz
+    - https://charts.beershop.ge/home-assistant-0.2.58.tgz
     version: 0.2.58
   jackett:
   - apiVersion: v1
@@ -142,7 +142,7 @@ entries:
     icon: https://bananaspliff.github.io/geek-charts/jackett/logo/jackett.png
     name: jackett
     urls:
-    - https://charts.beershop.ge/satu-charts/jackett-0.3.0.tgz
+    - https://charts.beershop.ge/jackett-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v1
     appVersion: "1.0"
@@ -152,7 +152,7 @@ entries:
     icon: https://bananaspliff.github.io/geek-charts/jackett/logo/jackett.png
     name: jackett
     urls:
-    - https://charts.beershop.ge/satu-charts/jackett-0.2.0.tgz
+    - https://charts.beershop.ge/jackett-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v1
     appVersion: "1.0"
@@ -162,7 +162,7 @@ entries:
     icon: https://bananaspliff.github.io/geek-charts/jackett/logo/jackett.png
     name: jackett
     urls:
-    - https://charts.beershop.ge/satu-charts/jackett-0.1.0.tgz
+    - https://charts.beershop.ge/jackett-0.1.0.tgz
     version: 0.1.0
   jellyfin:
   - apiVersion: v2
@@ -173,7 +173,7 @@ entries:
     name: jellyfin
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/jellyfin-0.14.0.tgz
+    - https://charts.beershop.ge/jellyfin-0.14.0.tgz
     version: 0.14.0
   - apiVersion: v2
     appVersion: "1.0"
@@ -183,7 +183,7 @@ entries:
     name: jellyfin
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/jellyfin-0.13.0.tgz
+    - https://charts.beershop.ge/jellyfin-0.13.0.tgz
     version: 0.13.0
   - apiVersion: v2
     appVersion: "1.0"
@@ -193,7 +193,7 @@ entries:
     name: jellyfin
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/jellyfin-0.12.0.tgz
+    - https://charts.beershop.ge/jellyfin-0.12.0.tgz
     version: 0.12.0
   - apiVersion: v2
     appVersion: "1.0"
@@ -203,7 +203,7 @@ entries:
     name: jellyfin
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/jellyfin-0.11.0.tgz
+    - https://charts.beershop.ge/jellyfin-0.11.0.tgz
     version: 0.11.0
   - apiVersion: v2
     appVersion: "1.0"
@@ -213,7 +213,7 @@ entries:
     name: jellyfin
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/jellyfin-0.10.0.tgz
+    - https://charts.beershop.ge/jellyfin-0.10.0.tgz
     version: 0.10.0
   - apiVersion: v2
     appVersion: "1.0"
@@ -223,7 +223,7 @@ entries:
     name: jellyfin
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/jellyfin-0.9.0.tgz
+    - https://charts.beershop.ge/jellyfin-0.9.0.tgz
     version: 0.9.0
   - apiVersion: v2
     appVersion: "1.0"
@@ -233,7 +233,7 @@ entries:
     name: jellyfin
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/jellyfin-0.8.0.tgz
+    - https://charts.beershop.ge/jellyfin-0.8.0.tgz
     version: 0.8.0
   - apiVersion: v2
     appVersion: "1.0"
@@ -243,7 +243,7 @@ entries:
     name: jellyfin
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/jellyfin-0.7.0.tgz
+    - https://charts.beershop.ge/jellyfin-0.7.0.tgz
     version: 0.7.0
   - apiVersion: v2
     appVersion: "1.0"
@@ -253,7 +253,7 @@ entries:
     name: jellyfin
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/jellyfin-0.6.0.tgz
+    - https://charts.beershop.ge/jellyfin-0.6.0.tgz
     version: 0.6.0
   - apiVersion: v2
     appVersion: "1.0"
@@ -263,7 +263,7 @@ entries:
     name: jellyfin
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/jellyfin-0.5.0.tgz
+    - https://charts.beershop.ge/jellyfin-0.5.0.tgz
     version: 0.5.0
   - apiVersion: v2
     appVersion: "1.0"
@@ -273,7 +273,7 @@ entries:
     name: jellyfin
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/jellyfin-0.4.0.tgz
+    - https://charts.beershop.ge/jellyfin-0.4.0.tgz
     version: 0.4.0
   - apiVersion: v2
     appVersion: "1.0"
@@ -283,7 +283,7 @@ entries:
     name: jellyfin
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/jellyfin-0.3.0.tgz
+    - https://charts.beershop.ge/jellyfin-0.3.0.tgz
     version: 0.3.0
   jellyfin-statefull:
   - apiVersion: v2
@@ -297,7 +297,7 @@ entries:
     name: jellyfin-statefull
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/jellyfin-statefull-0.5.0.tgz
+    - https://charts.beershop.ge/jellyfin-statefull-0.5.0.tgz
     version: 0.5.0
   - apiVersion: v2
     appVersion: 10.9.0
@@ -310,7 +310,7 @@ entries:
     name: jellyfin-statefull
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/jellyfin-statefull-0.4.0.tgz
+    - https://charts.beershop.ge/jellyfin-statefull-0.4.0.tgz
     version: 0.4.0
   - apiVersion: v2
     appVersion: 10.9.0
@@ -323,7 +323,7 @@ entries:
     name: jellyfin-statefull
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/jellyfin-statefull-0.3.0.tgz
+    - https://charts.beershop.ge/jellyfin-statefull-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v2
     appVersion: 10.9.0
@@ -336,7 +336,7 @@ entries:
     name: jellyfin-statefull
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/jellyfin-statefull-0.2.0.tgz
+    - https://charts.beershop.ge/jellyfin-statefull-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v2
     appVersion: 10.9.0
@@ -349,7 +349,7 @@ entries:
     name: jellyfin-statefull
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/jellyfin-statefull-0.1.0.tgz
+    - https://charts.beershop.ge/jellyfin-statefull-0.1.0.tgz
     version: 0.1.0
   jellyseerr:
   - apiVersion: v2
@@ -360,7 +360,7 @@ entries:
     name: jellyseerr
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/jellyseerr-1.0.5.tgz
+    - https://charts.beershop.ge/jellyseerr-1.0.5.tgz
     version: 1.0.5
   - apiVersion: v2
     appVersion: 1.7.0
@@ -370,7 +370,7 @@ entries:
     name: jellyseerr
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/jellyseerr-1.0.4.tgz
+    - https://charts.beershop.ge/jellyseerr-1.0.4.tgz
     version: 1.0.4
   - apiVersion: v2
     appVersion: 1.7.0
@@ -380,7 +380,7 @@ entries:
     name: jellyseerr
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/jellyseerr-1.0.3.tgz
+    - https://charts.beershop.ge/jellyseerr-1.0.3.tgz
     version: 1.0.3
   - apiVersion: v2
     appVersion: 1.7.0
@@ -390,7 +390,7 @@ entries:
     name: jellyseerr
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/jellyseerr-1.0.2.tgz
+    - https://charts.beershop.ge/jellyseerr-1.0.2.tgz
     version: 1.0.2
   k8s-api:
   - apiVersion: v2
@@ -401,7 +401,7 @@ entries:
     name: k8s-api
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/k8s-api-0.1.0.tgz
+    - https://charts.beershop.ge/k8s-api-0.1.0.tgz
     version: 0.1.0
   k8s-service:
   - apiVersion: v1
@@ -415,7 +415,7 @@ entries:
       url: satu.com.ge
     name: k8s-service
     urls:
-    - https://charts.beershop.ge/satu-charts/k8s-service-10.09.91.tgz
+    - https://charts.beershop.ge/k8s-service-10.09.91.tgz
     version: 10.09.91
   - apiVersion: v1
     created: "2024-11-20T10:34:01.504536247Z"
@@ -428,7 +428,7 @@ entries:
       url: https://gruntwork.io
     name: k8s-service
     urls:
-    - https://charts.beershop.ge/satu-charts/k8s-service-0.1.101.tgz
+    - https://charts.beershop.ge/k8s-service-0.1.101.tgz
     version: 0.1.101
   - apiVersion: v1
     created: "2024-11-20T10:34:01.502817066Z"
@@ -441,7 +441,7 @@ entries:
       url: satu.com.ge
     name: k8s-service
     urls:
-    - https://charts.beershop.ge/satu-charts/k8s-service-0.1.100.tgz
+    - https://charts.beershop.ge/k8s-service-0.1.100.tgz
     version: 0.1.100
   - apiVersion: v1
     created: "2024-11-20T10:34:01.501049013Z"
@@ -453,7 +453,7 @@ entries:
       name: Platform Omege
     name: k8s-service
     urls:
-    - https://charts.beershop.ge/satu-charts/k8s-service-0.0.27.tgz
+    - https://charts.beershop.ge/k8s-service-0.0.27.tgz
     version: 0.0.27
   - apiVersion: v1
     created: "2024-11-20T10:34:01.499901975Z"
@@ -465,7 +465,7 @@ entries:
       name: Platform Omege
     name: k8s-service
     urls:
-    - https://charts.beershop.ge/satu-charts/k8s-service-0.0.26.tgz
+    - https://charts.beershop.ge/k8s-service-0.0.26.tgz
     version: 0.0.26
   - apiVersion: v1
     created: "2024-11-20T10:34:01.49877882Z"
@@ -477,7 +477,7 @@ entries:
       name: Platform Omege
     name: k8s-service
     urls:
-    - https://charts.beershop.ge/satu-charts/k8s-service-0.0.25.tgz
+    - https://charts.beershop.ge/k8s-service-0.0.25.tgz
     version: 0.0.25
   - apiVersion: v1
     created: "2024-11-20T10:34:01.497580105Z"
@@ -489,7 +489,7 @@ entries:
       name: Platform Omege
     name: k8s-service
     urls:
-    - https://charts.beershop.ge/satu-charts/k8s-service-0.0.24.tgz
+    - https://charts.beershop.ge/k8s-service-0.0.24.tgz
     version: 0.0.24
   - apiVersion: v1
     created: "2024-11-20T10:34:01.495963802Z"
@@ -501,7 +501,7 @@ entries:
       name: Platform Omege
     name: k8s-service
     urls:
-    - https://charts.beershop.ge/satu-charts/k8s-service-0.0.23.tgz
+    - https://charts.beershop.ge/k8s-service-0.0.23.tgz
     version: 0.0.23
   mikrotik-exporter:
   - apiVersion: v2
@@ -512,7 +512,7 @@ entries:
     name: mikrotik-exporter
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/mikrotik-exporter-0.3.0.tgz
+    - https://charts.beershop.ge/mikrotik-exporter-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v2
     appVersion: v1.1.2
@@ -522,7 +522,7 @@ entries:
     name: mikrotik-exporter
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/mikrotik-exporter-0.2.0.tgz
+    - https://charts.beershop.ge/mikrotik-exporter-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v2
     appVersion: v1.1.2
@@ -532,7 +532,7 @@ entries:
     name: mikrotik-exporter
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/mikrotik-exporter-0.1.0.tgz
+    - https://charts.beershop.ge/mikrotik-exporter-0.1.0.tgz
     version: 0.1.0
   nfs-server:
   - apiVersion: v2
@@ -543,7 +543,7 @@ entries:
     name: nfs-server
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/nfs-server-0.8.0.tgz
+    - https://charts.beershop.ge/nfs-server-0.8.0.tgz
     version: 0.8.0
   - apiVersion: v2
     appVersion: 1.16.0
@@ -553,7 +553,7 @@ entries:
     name: nfs-server
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/nfs-server-0.7.0.tgz
+    - https://charts.beershop.ge/nfs-server-0.7.0.tgz
     version: 0.7.0
   - apiVersion: v2
     appVersion: 1.16.0
@@ -563,7 +563,7 @@ entries:
     name: nfs-server
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/nfs-server-0.6.0.tgz
+    - https://charts.beershop.ge/nfs-server-0.6.0.tgz
     version: 0.6.0
   - apiVersion: v2
     appVersion: 1.16.0
@@ -573,7 +573,7 @@ entries:
     name: nfs-server
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/nfs-server-0.3.0.tgz
+    - https://charts.beershop.ge/nfs-server-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v2
     appVersion: 1.16.0
@@ -583,7 +583,7 @@ entries:
     name: nfs-server
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/nfs-server-0.2.0.tgz
+    - https://charts.beershop.ge/nfs-server-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v2
     appVersion: 1.16.0
@@ -593,7 +593,7 @@ entries:
     name: nfs-server
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/nfs-server-0.1.0.tgz
+    - https://charts.beershop.ge/nfs-server-0.1.0.tgz
     version: 0.1.0
   radarr:
   - apiVersion: v1
@@ -604,7 +604,7 @@ entries:
     icon: https://bananaspliff.github.io/geek-charts/radarr/logo/radarr.png
     name: radarr
     urls:
-    - https://charts.beershop.ge/satu-charts/radarr-0.3.0.tgz
+    - https://charts.beershop.ge/radarr-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v1
     appVersion: "1.0"
@@ -614,7 +614,7 @@ entries:
     icon: https://bananaspliff.github.io/geek-charts/radarr/logo/radarr.png
     name: radarr
     urls:
-    - https://charts.beershop.ge/satu-charts/radarr-0.2.0.tgz
+    - https://charts.beershop.ge/radarr-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v1
     appVersion: "1.0"
@@ -624,7 +624,7 @@ entries:
     icon: https://bananaspliff.github.io/geek-charts/radarr/logo/radarr.png
     name: radarr
     urls:
-    - https://charts.beershop.ge/satu-charts/radarr-0.1.0.tgz
+    - https://charts.beershop.ge/radarr-0.1.0.tgz
     version: 0.1.0
   sonarr:
   - apiVersion: v1
@@ -635,7 +635,7 @@ entries:
     icon: https://bananaspliff.github.io/geek-charts/sonarr/logo/sonarr.png
     name: sonarr
     urls:
-    - https://charts.beershop.ge/satu-charts/sonarr-0.3.0.tgz
+    - https://charts.beershop.ge/sonarr-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v1
     appVersion: "1.0"
@@ -645,7 +645,7 @@ entries:
     icon: https://bananaspliff.github.io/geek-charts/sonarr/logo/sonarr.png
     name: sonarr
     urls:
-    - https://charts.beershop.ge/satu-charts/sonarr-0.2.0.tgz
+    - https://charts.beershop.ge/sonarr-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v1
     appVersion: "1.0"
@@ -655,7 +655,7 @@ entries:
     icon: https://bananaspliff.github.io/geek-charts/sonarr/logo/sonarr.png
     name: sonarr
     urls:
-    - https://charts.beershop.ge/satu-charts/sonarr-0.1.0.tgz
+    - https://charts.beershop.ge/sonarr-0.1.0.tgz
     version: 0.1.0
   transmission-openvpn:
   - apiVersion: v1
@@ -666,7 +666,7 @@ entries:
     icon: https://bananaspliff.github.io/geek-charts/transmission-openvpn/logo/transmission.png
     name: transmission-openvpn
     urls:
-    - https://charts.beershop.ge/satu-charts/transmission-openvpn-0.3.0.tgz
+    - https://charts.beershop.ge/transmission-openvpn-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v1
     appVersion: "1.0"
@@ -676,7 +676,7 @@ entries:
     icon: https://bananaspliff.github.io/geek-charts/transmission-openvpn/logo/transmission.png
     name: transmission-openvpn
     urls:
-    - https://charts.beershop.ge/satu-charts/transmission-openvpn-0.2.0.tgz
+    - https://charts.beershop.ge/transmission-openvpn-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v1
     appVersion: "1.0"
@@ -686,7 +686,7 @@ entries:
     icon: https://bananaspliff.github.io/geek-charts/transmission-openvpn/logo/transmission.png
     name: transmission-openvpn
     urls:
-    - https://charts.beershop.ge/satu-charts/transmission-openvpn-0.1.0.tgz
+    - https://charts.beershop.ge/transmission-openvpn-0.1.0.tgz
     version: 0.1.0
   tvheadend:
   - apiVersion: v2
@@ -697,7 +697,7 @@ entries:
     name: tvheadend
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/tvheadend-1.0.1.tgz
+    - https://charts.beershop.ge/tvheadend-1.0.1.tgz
     version: 1.0.1
   uptime-kuma:
   - apiVersion: v2
@@ -715,6 +715,6 @@ entries:
     - https://github.com/louislam/uptime-kuma
     type: application
     urls:
-    - https://charts.beershop.ge/satu-charts/uptime-kuma-2.18.0.tgz
+    - https://charts.beershop.ge/uptime-kuma-2.18.0.tgz
     version: 2.18.0
 generated: "2024-11-20T10:34:01.473456101Z"
