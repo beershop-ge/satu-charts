@@ -1,0 +1,6 @@
+apiVersion: v2
+name: nextpvr
+description: NextPVR: personal video recorder for TV tuners (with DVB device passthrough)
+type: application
+version: 0.2.0
+appVersion: "6.1.5"

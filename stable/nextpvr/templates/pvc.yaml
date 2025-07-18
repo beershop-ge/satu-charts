@@ -1,0 +1,43 @@
+{{- if .Values.persistence.config.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "nextpvr.fullname" . }}-config
+spec:
+  accessModes:
+    - {{ .Values.persistence.config.accessMode }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.config.size }}
+  storageClassName: {{ .Values.persistence.config.storageClassName | quote }}
+{{- end }}
+
+{{- if .Values.persistence.recordings.enabled }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "nextpvr.fullname" . }}-recordings
+spec:
+  accessModes:
+    - {{ .Values.persistence.recordings.accessMode }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.recordings.size }}
+  storageClassName: {{ .Values.persistence.recordings.storageClassName | quote }}
+{{- end }}
+
+{{- if .Values.persistence.buffer.enabled }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "nextpvr.fullname" . }}-buffer
+spec:
+  accessModes:
+    - {{ .Values.persistence.buffer.accessMode }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.buffer.size }}
+  storageClassName: {{ .Values.persistence.buffer.storageClassName | quote }}
+{{- end }}

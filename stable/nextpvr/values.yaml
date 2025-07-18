@@ -1,0 +1,89 @@
+image:
+  repository: nextpvr/nextpvr_amd64
+  tag: stable
+  pullPolicy: IfNotPresent
+
+env:
+  PUID: "1000"
+  PGID: "100"
+  TZ: "Europe/Tbilisi"
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "256Mi"
+  limits:
+    cpu: "500m"
+    memory: "2Gi"
+
+securityContext:
+  runAsUser: 1000
+  runAsGroup: 100
+  fsGroup: 100
+
+ports:
+  http: 8866
+  udp: 16891
+
+persistence:
+  config:
+    enabled: true
+    size: 5Gi
+    accessMode: ReadWriteOnce
+    mountPath: /config
+    storageClassName: ""
+  recordings:
+    enabled: true
+    size: 50Gi
+    accessMode: ReadWriteOnce
+    mountPath: /recordings
+    storageClassName: ""
+  buffer:
+    enabled: true
+    size: 10Gi
+    accessMode: ReadWriteOnce
+    mountPath: /buffer
+    storageClassName: ""
+
+dvb:
+  enabled: true
+  devicePath: /dev/dvb
+
+service:
+  type: ClusterIP
+  httpPort: 80
+  udpPort: 16891
+
+ingress:
+  enabled: true
+  className: ""
+  annotations: {}
+  hosts:
+    - host: nextpvr.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 30
+  periodSeconds: 20
+  failureThreshold: 5
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 15
+  periodSeconds: 10
+  failureThreshold: 5
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+fullnameOverride: ""
+nameOverride: ""

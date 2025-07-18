@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "nextpvr.fullname" . }}
+  labels:
+    {{- include "nextpvr.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "nextpvr.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "nextpvr.selectorLabels" . | nindent 8 }}
+    spec:
+      securityContext:
+        runAsUser: {{ .Values.securityContext.runAsUser }}
+        runAsGroup: {{ .Values.securityContext.runAsGroup }}
+        fsGroup: {{ .Values.securityContext.fsGroup }}
+      containers:
+        - name: nextpvr
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: PUID
+              value: "{{ .Values.env.PUID }}"
+            - name: PGID
+              value: "{{ .Values.env.PGID }}"
+            - name: TZ
+              value: "{{ .Values.env.TZ }}"
+          ports:
+            - name: http
+              containerPort: {{ .Values.ports.http }}
+            - name: udp
+              containerPort: {{ .Values.ports.udp }}
+              protocol: UDP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          livenessProbe:
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
+          volumeMounts:
+            - name: config
+              mountPath: {{ .Values.persistence.config.mountPath }}
+            - name: recordings
+              mountPath: {{ .Values.persistence.recordings.mountPath }}
+            - name: buffer
+              mountPath: {{ .Values.persistence.buffer.mountPath }}
+            {{- if .Values.dvb.enabled }}
+            - name: dvb-device
+              mountPath: {{ .Values.dvb.devicePath }}
+            {{- end }}
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: {{ include "nextpvr.fullname" . }}-config
+        - name: recordings
+          persistentVolumeClaim:
+            claimName: {{ include "nextpvr.fullname" . }}-recordings
+        - name: buffer
+          persistentVolumeClaim:
+            claimName: {{ include "nextpvr.fullname" . }}-buffer
+        {{- if .Values.dvb.enabled }}
+        - name: dvb-device
+          hostPath:
+            path: {{ .Values.dvb.devicePath }}
+            type: Directory
+        {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
