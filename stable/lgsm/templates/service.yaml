@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "lgsm.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "lgsm.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  annotations:
+{{ toYaml .Values.service.annotations | indent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  externalTrafficPolicy: {{ .Values.service.externalTrafficPolicy }}
+  selector:
+    app.kubernetes.io/name: {{ include "lgsm.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  ports:
+    {{- range .Values.ports }}
+    - name: {{ .name }}
+      port: {{ .port }}
+      targetPort: {{ .containerPort }}
+      protocol: {{ .protocol }}
+    {{- end }}

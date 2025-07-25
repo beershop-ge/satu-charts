@@ -1,0 +1,13 @@
+1. Get the service details:
+
+   kubectl get svc {{ include "lgsm.fullname" . }}
+
+2. Make sure your cloud / firewall allows the UDP/TCP ports you exposed:
+{{- range .Values.ports }}
+   - {{ .name }}: {{ .port }}/{{ .protocol }}
+{{- end }}
+
+3. To change the game type or extra envs:
+   - Edit values.yaml (game.type, game.extraEnv, ports, etc.) and upgrade:
+
+     helm upgrade {{ .Release.Name }} {{ .Chart.Name }} -f values.yaml
