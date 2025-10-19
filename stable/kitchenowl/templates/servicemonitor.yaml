@@ -1,0 +1,27 @@
+{{- if .Values.monitoring.servicemonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "kitchenowl.fullname" . }}-web
+  labels:
+    {{- include "kitchenowl.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "kitchenowl.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/component: "web"
+  endpoints:
+    - port: metrics
+      path: /metrics/
+      scheme: http
+      interval: 30s
+      scrapeTimeout: 10s
+      basicAuth:
+        username:
+          name: {{ include "kitchenowl.fullname" . }}-monitoring-auth
+          key: username
+        password:
+          name: {{ include "kitchenowl.fullname" . }}-monitoring-auth
+          key: password
+{{- end }}
