@@ -47,6 +47,13 @@ spec:
             {{- if .Values.gateway.allowUnconfigured }}
             - --allow-unconfigured
             {{- end }}
+            {{- if .Values.gateway.controlUi.allowedOrigins }}
+            - --control-ui-allowed-origins
+            - {{ join "," .Values.gateway.controlUi.allowedOrigins | quote }}
+            {{- end }}
+            {{- if .Values.gateway.controlUi.dangerouslyAllowHostHeaderOriginFallback }}
+            - --dangerously-allow-host-header-origin-fallback
+            {{- end }}
           env:
             - name: HOME
               value: /home/node

@@ -52,6 +52,13 @@ gateway:
   # -- Allow running without full configuration
   allowUnconfigured: true
 
+  # -- Control UI configuration
+  controlUi:
+    # -- Allowed origins for the Control UI (list of explicit origins, e.g. ["https://openclaw.example.com"])
+    allowedOrigins: []
+    # -- Use Host-header origin fallback mode (use when you don't want to set explicit origins)
+    dangerouslyAllowHostHeaderOriginFallback: true
+
   # -- Gateway bind address
   bind: "lan"
 
