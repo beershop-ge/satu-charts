@@ -48,6 +48,8 @@ spec:
               value: /home/node
             - name: TERM
               value: xterm-256color
+            - name: OPENCLAW_CONFIG_PATH
+              value: ~/.openclaw/openclaw.json
             {{- if not .Values.existingEnvSecret }}
             - name: OPENCLAW_GATEWAY_TOKEN
               valueFrom:

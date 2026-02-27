@@ -47,6 +47,8 @@ spec:
               value: /home/node
             - name: TERM
               value: xterm-256color
+            - name: OPENCLAW_CONFIG_PATH
+              value: ~/.openclaw/openclaw.json
             - name: BROWSER
               value: echo
             {{- if not .Values.existingEnvSecret }}
