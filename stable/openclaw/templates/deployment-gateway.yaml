@@ -40,6 +40,13 @@ spec:
             - {{ .Values.gateway.bind | quote }}
             - --port
             - {{ .Values.gateway.port | quote }}
+            {{- if .Values.gateway.mode }}
+            - --mode
+            - {{ .Values.gateway.mode | quote }}
+            {{- end }}
+            {{- if .Values.gateway.allowUnconfigured }}
+            - --allow-unconfigured
+            {{- end }}
           env:
             - name: HOME
               value: /home/node

@@ -46,6 +46,12 @@ gateway:
   # -- Restart policy (maps to `restartPolicy`). The compose `unless-stopped` maps to `Always` in k8s.
   restartPolicy: Always
 
+  # -- Gateway mode (e.g. "local")
+  mode: ""
+
+  # -- Allow running without full configuration
+  allowUnconfigured: true
+
   # -- Gateway bind address
   bind: "lan"
 
