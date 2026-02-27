@@ -38,11 +38,17 @@ spec:
             - gateway
             - --port
             - {{ .Values.gateway.port | quote }}
+          {{- if .Values.existingEnvSecret }}
+          envFrom:
+            - secretRef:
+                name: {{ .Values.existingEnvSecret }}
+          {{- end }}
           env:
             - name: HOME
               value: /home/node
             - name: TERM
               value: xterm-256color
+            {{- if not .Values.existingEnvSecret }}
             - name: OPENCLAW_GATEWAY_TOKEN
               valueFrom:
                 secretKeyRef:
@@ -63,6 +69,7 @@ spec:
                 secretKeyRef:
                   name: {{ include "openclaw.secretName" . }}
                   key: CLAUDE_WEB_COOKIE
+            {{- end }}
             {{- with .Values.gateway.extraEnv }}
             {{- toYaml . | nindent 12 }}
             {{- end }}

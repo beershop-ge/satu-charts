@@ -33,6 +33,11 @@ secrets:
 # CLAUDE_WEB_SESSION_KEY, CLAUDE_WEB_COOKIE
 existingSecret: ""
 
+# -- Load ALL environment variables from an existing secret (created from a .env file).
+# Create it with: kubectl create secret generic openclaw-env --from-env-file=.env
+# When set, this secret is mounted via envFrom and individual secret key refs above are skipped.
+existingEnvSecret: ""
+
 # =============================================================================
 # Gateway component
 # =============================================================================

@@ -37,6 +37,11 @@ spec:
             - dist/index.js
           stdin: true
           tty: true
+          {{- if .Values.existingEnvSecret }}
+          envFrom:
+            - secretRef:
+                name: {{ .Values.existingEnvSecret }}
+          {{- end }}
           env:
             - name: HOME
               value: /home/node
@@ -44,6 +49,7 @@ spec:
               value: xterm-256color
             - name: BROWSER
               value: echo
+            {{- if not .Values.existingEnvSecret }}
             - name: OPENCLAW_GATEWAY_TOKEN
               valueFrom:
                 secretKeyRef:
@@ -64,6 +70,7 @@ spec:
                 secretKeyRef:
                   name: {{ include "openclaw.secretName" . }}
                   key: CLAUDE_WEB_COOKIE
+            {{- end }}
             {{- with .Values.cli.extraEnv }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
