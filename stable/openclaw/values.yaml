@@ -1,0 +1,174 @@
+# -- String to partially override fullname template (will maintain the release name)
+nameOverride: ""
+# -- String to fully override fullname template
+fullnameOverride: ""
+
+global:
+  # -- Labels to apply to all resources
+  commonLabels: {}
+  # -- Reference to one or more secrets to be used when pulling images
+  imagePullSecrets: []
+
+image:
+  # -- Image repository
+  repository: openclaw
+  # -- Image tag
+  tag: local
+  # -- Image pull policy
+  pullPolicy: IfNotPresent
+
+# -- Secrets for environment variables (stored in a Kubernetes Secret)
+secrets:
+  # -- OpenClaw gateway token
+  gatewayToken: ""
+  # -- Claude AI session key
+  claudeAiSessionKey: ""
+  # -- Claude web session key
+  claudeWebSessionKey: ""
+  # -- Claude web cookie
+  claudeWebCookie: ""
+
+# -- Use an existing secret instead of creating one.
+# The secret must contain keys: OPENCLAW_GATEWAY_TOKEN, CLAUDE_AI_SESSION_KEY,
+# CLAUDE_WEB_SESSION_KEY, CLAUDE_WEB_COOKIE
+existingSecret: ""
+
+# =============================================================================
+# Gateway component
+# =============================================================================
+gateway:
+  # -- Enable the gateway component
+  enabled: true
+
+  # -- Number of replicas
+  replicaCount: 1
+
+  # -- Restart policy (maps to `restartPolicy`). The compose `unless-stopped` maps to `Always` in k8s.
+  restartPolicy: Always
+
+  # -- Gateway bind address
+  bind: "lan"
+
+  # -- Gateway service port
+  port: 18789
+
+  # -- Bridge service port
+  bridgePort: 18790
+
+  # -- Additional environment variables (list of name/value pairs)
+  extraEnv: []
+
+  # -- Pod annotations
+  podAnnotations: {}
+
+  # -- Pod labels
+  podLabels: {}
+
+  # -- Node selector
+  nodeSelector: {}
+
+  # -- Tolerations
+  tolerations: []
+
+  # -- Affinity rules
+  affinity: {}
+
+  # -- Resource requests and limits
+  resources: {}
+  # limits:
+  #   cpu: 500m
+  #   memory: 512Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+  service:
+    # -- Service type
+    type: ClusterIP
+    # -- Gateway port
+    port: 18789
+    # -- Bridge port
+    bridgePort: 18790
+
+  ingress:
+    # -- Enable ingress for the gateway
+    enabled: false
+    # -- Ingress class name
+    className: ""
+    # -- Ingress annotations
+    annotations: {}
+    # -- Ingress hosts
+    hosts:
+      - host: openclaw.local
+        paths:
+          - path: /
+            pathType: Prefix
+    # -- Ingress TLS configuration
+    tls: []
+
+# =============================================================================
+# CLI component
+# =============================================================================
+cli:
+  # -- Enable the CLI component (interactive pod)
+  enabled: false
+
+  # -- Additional environment variables (list of name/value pairs)
+  extraEnv: []
+
+  # -- Pod annotations
+  podAnnotations: {}
+
+  # -- Pod labels
+  podLabels: {}
+
+  # -- Node selector
+  nodeSelector: {}
+
+  # -- Tolerations
+  tolerations: []
+
+  # -- Affinity rules
+  affinity: {}
+
+  # -- Resource requests and limits
+  resources: {}
+
+# =============================================================================
+# Persistence
+# =============================================================================
+persistence:
+  config:
+    # -- Enable persistence for config directory
+    enabled: true
+    # -- Storage class (empty string uses default)
+    storageClass: ""
+    # -- Access modes
+    accessModes:
+      - ReadWriteOnce
+    # -- Storage size
+    size: 1Gi
+    # -- Use an existing PVC
+    existingClaim: ""
+
+  workspace:
+    # -- Enable persistence for workspace directory
+    enabled: true
+    # -- Storage class (empty string uses default)
+    storageClass: ""
+    # -- Access modes
+    accessModes:
+      - ReadWriteOnce
+    # -- Storage size
+    size: 5Gi
+    # -- Use an existing PVC
+    existingClaim: ""
+
+# -- Security context for pods
+podSecurityContext:
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000
+
+# -- Security context for containers
+securityContext: {}

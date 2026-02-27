@@ -1,0 +1,31 @@
+OpenClaw has been deployed!
+
+{{- if .Values.gateway.enabled }}
+
+Gateway:
+  kubectl port-forward svc/{{ include "openclaw.fullname" . }}-gateway {{ .Values.gateway.service.port }}:{{ .Values.gateway.service.port }}
+
+  Gateway endpoint: http://localhost:{{ .Values.gateway.service.port }}
+  Bridge endpoint:  http://localhost:{{ .Values.gateway.service.bridgePort }}
+
+{{- if .Values.gateway.ingress.enabled }}
+  Ingress hosts:
+  {{- range .Values.gateway.ingress.hosts }}
+    - {{ .host }}
+  {{- end }}
+{{- end }}
+{{- end }}
+
+{{- if .Values.cli.enabled }}
+
+CLI:
+  Attach to the CLI pod with:
+  kubectl attach -it deploy/{{ include "openclaw.fullname" . }}-cli
+{{- end }}
+
+{{- if not .Values.existingSecret }}
+
+Secrets:
+  Secret values are stored in secret "{{ include "openclaw.fullname" . }}".
+  You can set them via --set or use existingSecret to reference a pre-created secret.
+{{- end }}
