@@ -1,0 +1,20 @@
+{{- if .Values.gateway.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "openclaw.fullname" . }}-gateway-config
+  labels:
+    {{- include "openclaw.gateway.labels" . | nindent 4 }}
+data:
+  config.json: |
+    {
+      "gateway": {
+        "controlUi": {
+          {{- if .Values.gateway.controlUi.allowedOrigins }}
+          "allowedOrigins": {{ .Values.gateway.controlUi.allowedOrigins | toJson }},
+          {{- end }}
+          "dangerouslyAllowHostHeaderOriginFallback": {{ .Values.gateway.controlUi.dangerouslyAllowHostHeaderOriginFallback }}
+        }
+      }
+    }
+{{- end }}
