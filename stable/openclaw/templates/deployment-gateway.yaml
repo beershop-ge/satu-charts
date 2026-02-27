@@ -36,17 +36,8 @@ spec:
             - node
             - dist/index.js
             - gateway
-            - --bind
-            - {{ .Values.gateway.bind | quote }}
             - --port
             - {{ .Values.gateway.port | quote }}
-            {{- if .Values.gateway.mode }}
-            - --mode
-            - {{ .Values.gateway.mode | quote }}
-            {{- end }}
-            {{- if .Values.gateway.allowUnconfigured }}
-            - --allow-unconfigured
-            {{- end }}
           env:
             - name: HOME
               value: /home/node
@@ -88,8 +79,8 @@ spec:
             - name: workspace
               mountPath: /home/node/.openclaw/workspace
             - name: gateway-config
-              mountPath: /home/node/.openclaw/config.json
-              subPath: config.json
+              mountPath: /home/node/.openclaw/openclaw.json
+              subPath: openclaw.json
           {{- with .Values.securityContext }}
           securityContext:
             {{- toYaml . | nindent 12 }}

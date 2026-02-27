@@ -6,14 +6,17 @@ metadata:
   labels:
     {{- include "openclaw.gateway.labels" . | nindent 4 }}
 data:
-  config.json: |
+  openclaw.json: |
     {
       "gateway": {
+        "bind": {{ .Values.gateway.bind | quote }},
         "controlUi": {
-          {{- if .Values.gateway.controlUi.allowedOrigins }}
-          "allowedOrigins": {{ .Values.gateway.controlUi.allowedOrigins | toJson }},
-          {{- end }}
-          "dangerouslyAllowHostHeaderOriginFallback": {{ .Values.gateway.controlUi.dangerouslyAllowHostHeaderOriginFallback }}
+          "enabled": {{ .Values.gateway.controlUi.enabled }},
+          "allowedOrigins": {{ .Values.gateway.controlUi.allowedOrigins | toJson }}
+        },
+        "auth": {
+          "mode": {{ .Values.gateway.auth.mode | quote }},
+          "token": "${OPENCLAW_GATEWAY_TOKEN}"
         }
       }
     }

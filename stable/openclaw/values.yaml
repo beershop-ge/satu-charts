@@ -46,21 +46,21 @@ gateway:
   # -- Restart policy (maps to `restartPolicy`). The compose `unless-stopped` maps to `Always` in k8s.
   restartPolicy: Always
 
-  # -- Gateway mode (e.g. "local")
-  mode: ""
-
-  # -- Allow running without full configuration
-  allowUnconfigured: true
+  # -- Gateway bind address (also written to the config file)
+  bind: "lan"
 
   # -- Control UI configuration
   controlUi:
-    # -- Allowed origins for the Control UI (list of explicit origins, e.g. ["https://openclaw.example.com"])
-    allowedOrigins: []
-    # -- Use Host-header origin fallback mode (use when you don't want to set explicit origins)
-    dangerouslyAllowHostHeaderOriginFallback: true
+    # -- Enable the Control UI
+    enabled: true
+    # -- Allowed origins for the Control UI
+    allowedOrigins:
+      - "https://openclaw.beershop.ge"
 
-  # -- Gateway bind address
-  bind: "lan"
+  # -- Gateway auth configuration
+  auth:
+    # -- Auth mode (e.g. "token")
+    mode: "token"
 
   # -- Gateway service port
   port: 18789
