@@ -38,6 +38,7 @@ spec:
             - gateway
             - --port
             - {{ .Values.gateway.port | quote }}
+            - --allow-unconfigured
           {{- if .Values.existingEnvSecret }}
           envFrom:
             - secretRef:
