@@ -2,6 +2,6 @@ apiVersion: v2
 type: application
 name: openclaw
 description: OpenClaw gateway and CLI deployment
-version: 0.1.0
+version: 0.2.0
 appVersion: "latest"
 kubeVersion: ">=1.20"
