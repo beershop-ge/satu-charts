@@ -1,7 +1,7 @@
 apiVersion: v2
 name: n8n
-version: 1.0.11
-appVersion: 1.99.1
+version: 2.0.1
+appVersion: 1.122.4
 type: application
 description: "Helm Chart for deploying n8n on Kubernetes, a fair-code workflow automation platform with native AI capabilities for technical teams. Easily automate tasks across different services."
 home: https://charts.beershop.ge/
@@ -24,15 +24,15 @@ maintainers:
     email: _@8gears.com
     url: https://github.com/n8n-io
 
-# dependencies:
-#   - name: valkey
-#     version: 2.4.7
-#     repository: https://charts.bitnami.com/bitnami
-#     condition: valkey.enabled
+dependencies:
+  - name: valkey
+    version: 0.8.1
+    repository: https://valkey.io/valkey-helm/
+    condition: valkey.enabled
 
 annotations:
   artifacthub.io/prerelease: "false"
   # supported kinds are added, changed, deprecated, removed, fixed and security.
   artifacthub.io/changes: |
-    - kind: fixed
-      description: "allows empty tls for ingres: fixes https://github.com/8gears/n8n-helm-chart/issues/167"
+    - kind: changed
+      description: "Changed the ingress logic to allow different types of pathType in place of the hardcoded 'pathType: Prefix'"
